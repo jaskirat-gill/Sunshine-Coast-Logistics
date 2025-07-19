@@ -8,7 +8,7 @@ export default function Hero() {
   const stats = [
     { icon: Users, label: "Over 1,000", sublabel: "businesses working with us", delay: 0.2 },
     { icon: Package, label: "Over 100,000", sublabel: "shipments per year", delay: 0.4 },
-    { icon: Shield, label: "Your security", sublabel: "prioritized", delay: 0.6 },
+    { icon: Shield, label: "Your satisfaction", sublabel: "guaranteed", delay: 0.6 },
   ]
 
   return (
