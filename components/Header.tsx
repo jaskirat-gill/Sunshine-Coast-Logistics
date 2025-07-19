@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Facebook, Instagram, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Image from "next/image"
@@ -19,6 +19,12 @@ export default function Header() {
     { name: "Equipment", href: "/equipment" },
   ]
 
+  const socialLinks = [
+    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  ]
+
   return (
       <motion.header
           initial={{ y: -100, opacity: 0 }}
@@ -27,7 +33,8 @@ export default function Header() {
           className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/10 border-b border-yellow-400/20"
       >
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-2">
+          {/* Logo & Tagline */}
+          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
             <Image
                 src="/logo.webp"
                 alt="Logo"
@@ -37,7 +44,7 @@ export default function Header() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-2" aria-label="Main navigation">
             {navItems.map((item, index) => (
                 <motion.a
                     key={item.name}
@@ -45,7 +52,7 @@ export default function Header() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
-                    className="text-white hover:text-yellow-400 transition-colors duration-300 font-medium"
+                    className="text-white hover:text-yellow-400 transition-colors duration-300 font-medium px-3 py-2 rounded-lg hover:bg-white/10"
                     whileHover={{ scale: 1.05 }}
                 >
                   {item.name}
@@ -53,7 +60,22 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* Desktop Social Links & CTA */}
           <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex space-x-2">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
             <Link href="/contact">
               <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700">
                 Contact Us
@@ -68,6 +90,7 @@ export default function Header() {
                   variant="ghost"
                   size="icon"
                   className="lg:hidden text-white hover:bg-white/10 transition-colors"
+                  aria-label="Open menu"
               >
                 <Menu className="h-6 w-6" />
               </Button>
@@ -79,14 +102,24 @@ export default function Header() {
               <div className="flex flex-col h-full">
                 {/* Header with logo and title */}
                 <div className="flex justify-between items-center p-6 border-b border-yellow-400/20">
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-                    Menu
-                  </h2>
+                  <div className="flex items-center space-x-2">
+                    <Image
+                      src="/logo.webp"
+                      alt="Logo"
+                      width={36}
+                      height={36}
+                      className="rounded-lg"
+                    />
+                    <span className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                      Menu
+                    </span>
+                  </div>
                   <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => setIsOpen(false)}
                       className="text-white hover:bg-white/10 rounded-full"
+                      aria-label="Close menu"
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -95,7 +128,7 @@ export default function Header() {
                 {/* Navigation Items */}
                 <div className="flex-1 overflow-y-auto py-6 px-6">
                   <AnimatePresence>
-                    <nav className="flex flex-col space-y-1">
+                    <nav className="flex flex-col space-y-1" aria-label="Mobile navigation">
                       {navItems.map((item, index) => (
                           <motion.a
                               key={item.name}
@@ -115,6 +148,22 @@ export default function Header() {
                   </AnimatePresence>
                 </div>
 
+                {/* Social Links (Mobile) */}
+                <div className="flex justify-center space-x-4 mb-4">
+                  {socialLinks.map(({ icon: Icon, href, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="text-gray-400 hover:text-yellow-400 transition-colors"
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+
                 {/* Bottom section with CTA */}
                 <div className="p-6 border-t border-yellow-400/20 backdrop-blur-md bg-white/10">
                   <Link href="/contact">
@@ -130,6 +179,8 @@ export default function Header() {
             </SheetContent>
           </Sheet>
         </div>
+        {/* Subtle divider for clarity */}
+        <div className="w-full h-px bg-yellow-400/10" />
       </motion.header>
   )
 }
