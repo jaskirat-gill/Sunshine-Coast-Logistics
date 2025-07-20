@@ -12,10 +12,10 @@ export default function HomePage() {
     <div className="min-h-screen bg-black">
       <Header />
       <Hero />
-      <Services />
+      {/*<Services />*/}
       <Products />
       <About />
-      <Contact />
+      {/*<Contact />*/}
       <Footer />
     </div>
   )
