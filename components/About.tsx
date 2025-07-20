@@ -29,32 +29,44 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-black to-gray-900">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="about" className="py-20 relative overflow-hidden rounded-3xl">
+      {/* Blurred background image */}
+      <div className="absolute inset-0 z-0 rounded-3xl">
+        <Image
+          src="/home_about_image.jpg"
+          alt="Modern logistics operations"
+          fill
+          className="object-cover w-full h-full blur-lg scale-105"
+          style={{ objectPosition: "center" }}
+          priority
+        />
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white/5 backdrop-blur-md rounded-3xl border border-yellow-400/20 shadow-xl p-8 md:p-16"
+        >
           {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               About{" "}
               <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                 Sunshine Coast Logistics
               </span>
             </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
               We are a leading logistics platform connecting shippers and carriers across the Sunshine Coast and beyond.
               Our digital ecosystem provides comprehensive solutions for modern transportation challenges.
             </p>
-            <p className="text-lg text-gray-400 mb-8">
+            <p className="text-lg text-gray-400 mb-10 max-w-2xl">
               From transport tenders to real-time cargo tracking, we leverage cutting-edge technology to streamline
               logistics operations and deliver exceptional value to our clients.
             </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -74,28 +86,21 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="backdrop-blur-md bg-white/5 border border-yellow-400/20 rounded-3xl p-8">
+          </div>
+          {/* Image on the right */}
+          <div className="flex justify-center md:justify-end">
+            <div className="relative w-full max-w-md aspect-[4/3] rounded-2xl overflow-hidden border-4 border-yellow-400/60 shadow-lg">
               <Image
-                src="/placeholder.svg?height=500&width=600"
+                src="/home_about_image.jpg"
                 alt="Modern logistics operations"
-                className="w-full h-auto rounded-2xl"
-                width={600}
-                height={500}
+                fill
+                className="object-cover w-full h-full"
+                style={{ objectPosition: "center" }}
+                priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl" />
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
