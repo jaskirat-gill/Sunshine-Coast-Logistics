@@ -89,9 +89,7 @@ export default function Services() {
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-3">{service.title}</h3>
               <p className="text-zinc-600 dark:text-zinc-300 mb-5">{service.description}</p>
-              <Button variant="link" className="text-yellow-600 dark:text-yellow-400 p-0 flex items-center group-hover:translate-x-2 transition-transform duration-300">
-                Learn more <ChevronRight className="ml-1 w-4 h-4" />
-              </Button>
+              
             </motion.div>
           ))}
         </div>

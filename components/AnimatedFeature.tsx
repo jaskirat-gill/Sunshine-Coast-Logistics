@@ -18,7 +18,6 @@ export default function AnimatedFeature() {
   
   const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100])
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8])
   
   // Parallax effect for images
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -100])
@@ -36,13 +35,15 @@ export default function AnimatedFeature() {
       { threshold: 0.1 }
     )
     
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
+    const currentElement = containerRef.current
+    
+    if (currentElement) {
+      observer.observe(currentElement)
     }
     
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current)
+      if (currentElement) {
+        observer.unobserve(currentElement)
       }
     }
   }, [])
@@ -51,7 +52,7 @@ export default function AnimatedFeature() {
     if (isInView) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % 3)
-      }, 3000)
+      }, 6000)
       return () => clearInterval(interval)
     }
   }, [isInView])
@@ -92,10 +93,11 @@ export default function AnimatedFeature() {
       
       {/* Animated grid pattern */}
       <motion.div 
-        className="absolute inset-0 opacity-5 dark:opacity-10 -z-5"
+        className="absolute inset-0 opacity-10 dark:opacity-20 z-0"
         style={{ 
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
         }}
+        initial={{ backgroundPosition: "0px 0px" }}
         animate={{
           backgroundPosition: ["0px 0px", "60px 60px"],
         }}
@@ -115,7 +117,7 @@ export default function AnimatedFeature() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
+            className="text-4xl pb-4 md:text-6xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
           >
             Logistics Excellence
           </motion.h2>
@@ -123,7 +125,7 @@ export default function AnimatedFeature() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto"
+            className="text-xl pb-4 md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto"
           >
             Delivering exceptional service with cutting-edge technology
           </motion.p>
@@ -140,7 +142,7 @@ export default function AnimatedFeature() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.7 }}
+                  transition={{ duration: 1.5 }}
                 >
                   {/* Text content */}
                   <motion.div 
@@ -150,14 +152,14 @@ export default function AnimatedFeature() {
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.8 }}
+                      transition={{ delay: 0.5, duration: 1.2 }}
                       className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-xl border border-zinc-200 dark:border-zinc-700/50"
                     >
                       <motion.h3 
-                        className={`text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}
+                        className={`text-3xl pb-2 md:text-4xl font-bold mb-6 bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.8 }}
+                        transition={{ delay: 0.8, duration: 1.2 }}
                       >
                         {feature.title}
                       </motion.h3>
@@ -165,14 +167,14 @@ export default function AnimatedFeature() {
                         className="text-lg md:text-xl text-zinc-700 dark:text-zinc-300 mb-8"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.7, duration: 0.8 }}
+                        transition={{ delay: 1.0, duration: 1.2 }}
                       >
                         {feature.description}
                       </motion.p>
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9, duration: 0.8 }}
+                        transition={{ delay: 1.2, duration: 1.2 }}
                       >
                         <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full">
                           Learn More
@@ -191,7 +193,7 @@ export default function AnimatedFeature() {
                       className="absolute inset-0 rounded-3xl overflow-hidden"
                       initial={{ clipPath: "inset(100% 0 0 0)" }}
                       animate={{ clipPath: "inset(0% 0 0% 0)" }}
-                      transition={{ delay: 0.2, duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+                      transition={{ delay: 0.4, duration: 2.0, ease: [0.25, 1, 0.5, 1] }}
                     >
                       <Image
                         src={feature.image}
@@ -226,22 +228,25 @@ export default function AnimatedFeature() {
         </div>
         
         {/* Animated statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           {[
-            { value: "15+", label: "Years of Experience" },
+            { value: "10+", label: "Years of Experience" },
             { value: "1,000+", label: "Satisfied Clients" },
             { value: "500,000+", label: "Shipments Completed" }
           ].map((stat, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-zinc-800/50 rounded-2xl p-8 text-center shadow-lg border border-zinc-200 dark:border-zinc-700/50"
+              className="bg-gradient-to-br from-white/70 to-white/40 dark:from-zinc-800/40 dark:to-zinc-900/20 backdrop-blur-lg rounded-2xl p-8 text-center shadow-lg border border-white/20 dark:border-zinc-700/30 relative overflow-hidden"
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.6, delay: index * 0.2 + 0.3 }}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)", transition: { duration: 0.3 } }}
             >
+              {/* Glow effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-400/20 to-yellow-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+              
               <motion.div
-                className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-4"
+                className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-4 relative"
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.5, opacity: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 + 0.5 }}
@@ -249,7 +254,7 @@ export default function AnimatedFeature() {
                 {stat.value}
               </motion.div>
               <motion.p
-                className="text-lg text-zinc-700 dark:text-zinc-300"
+                className="text-lg font-medium text-zinc-800 dark:text-zinc-200"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 + 0.7 }}
