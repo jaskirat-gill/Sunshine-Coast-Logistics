@@ -142,6 +142,7 @@ export default function About() {
                   src="/home_about_image.jpg"
                   alt="Modern logistics operations"
                   fill
+                  sizes="(max-width: 768px) 100vw, 400px"
                   className="object-cover w-full h-full"
                   style={{ objectPosition: "center" }}
                   priority

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Users, Package, Shield, ChevronDown } from "lucide-react"
@@ -8,6 +8,23 @@ import Link from "next/link"
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
+  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, opacity: number}>>([])
+  const isClient = useRef(false)
+  
+  // Generate particles only on the client side
+  useEffect(() => {
+    isClient.current = true
+    
+    // Generate random particles
+    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      opacity: Math.random() * 0.5 + 0.3
+    }))
+    
+    setParticles(newParticles)
+  }, [])
   
   useEffect(() => {
     const handleScroll = () => {
@@ -49,25 +66,25 @@ export default function Hero() {
         </video>
       </div>
 
-      {/* Animated particles */}
+      {/* Animated particles - only rendered client-side */}
       <div className="absolute inset-0 z-5 opacity-30">
-        {[...Array(20)].map((_, i) => (
+        {isClient.current && particles.map((particle) => (
           <motion.div
-            key={i}
+            key={particle.id}
             className="absolute w-1 h-1 md:w-2 md:h-2 bg-yellow-400 rounded-full"
             initial={{ 
-              x: `${Math.random() * 100}%`, 
-              y: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5 + 0.3
+              x: `${particle.x}%`, 
+              y: `${particle.y}%`,
+              opacity: particle.opacity
             }}
             animate={{ 
-              x: `${Math.random() * 100}%`, 
-              y: `${Math.random() * 100}%`,
-              opacity: [Math.random() * 0.5 + 0.3, Math.random() * 0.5 + 0.5, Math.random() * 0.5 + 0.3]
+              x: `${(particle.x + 50) % 100}%`, 
+              y: `${(particle.y + 50) % 100}%`,
+              opacity: [particle.opacity, particle.opacity + 0.2, particle.opacity]
             }}
             transition={{ 
               repeat: Infinity, 
-              duration: Math.random() * 20 + 10,
+              duration: 10 + (particle.id % 10),
               ease: "linear"
             }}
           />

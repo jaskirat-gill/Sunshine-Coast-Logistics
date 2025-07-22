@@ -95,6 +95,7 @@ export default function Header() {
                   src="/logo.webp"
                   alt="Logo"
                   fill
+                  sizes="(max-width: 768px) 100vw, 128px"
                   className="object-contain"
                   priority
                 />
