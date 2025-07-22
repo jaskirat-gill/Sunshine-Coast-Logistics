@@ -33,7 +33,7 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28">
       {/* Background Video with Lighter Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/30 z-10" />
@@ -76,7 +76,7 @@ export default function Hero() {
 
       {/* Content */}
       <motion.div 
-        className="relative z-20 container mx-auto px-4 text-center"
+        className="relative z-20 container mx-auto px-4 text-center mt-16"
         style={{ opacity, scale, y }}
       >
         <motion.div
@@ -115,17 +115,32 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full relative overflow-hidden group"
             >
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-black/0 via-black/10 to-black/0 group-hover:animate-shimmer" />
+              <span className="absolute inset-0 w-0 bg-gradient-to-r from-yellow-600 to-yellow-800 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
+              <span className="relative z-10 flex items-center transition-all duration-300">
+                <Link href="/contact" className="relative inline-block text-white font-semibold group-hover:text-white transition-colors duration-300">
+                  Contact Us
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black/50 group-hover:bg-white/50 group-hover:w-full transition-all duration-300" />
+                </Link>
+              </span>
+              <span className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-20 bg-white blur-md group-hover:animate-pulse transition-all duration-500"></span>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full"
+              className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full relative overflow-hidden group"
             >
-              Learn More
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-400/0 via-yellow-400/30 to-yellow-400/0 group-hover:animate-shimmer" />
+              <span className="absolute inset-0 w-0 bg-gradient-to-r from-white/5 to-white/20 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
+              <span className="relative z-10  bg-clip-text text-transparent group-hover:from-yellow-300 group-hover:to-yellow-500 transition-all duration-300">
+                <Link href="/about" className="relative inline-block text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300">
+                  Learn More
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 group-hover:w-full transition-all duration-300" />
+                </Link>
+              </span>
+              <span className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-10 bg-yellow-400 blur-md group-hover:animate-pulse transition-all duration-500"></span>
             </Button>
           </motion.div>
         </motion.div>
@@ -153,21 +168,6 @@ export default function Hero() {
               <p className="text-gray-300">{stat.sublabel}</p>
             </motion.div>
           ))}
-        </motion.div>
-        
-        {/* Scroll indicator */}
-        <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            <ChevronDown className="w-8 h-8 text-white/70" />
-          </motion.div>
         </motion.div>
       </motion.div>
     </section>
