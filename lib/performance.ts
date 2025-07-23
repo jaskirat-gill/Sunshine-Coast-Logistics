@@ -41,9 +41,8 @@ export function useLowPerformanceMode(): boolean {
     if (typeof window === 'undefined') return
     
     // Check if the device has limited memory or CPU
-    // @ts-ignore - navigator.deviceMemory is not in the TypeScript types
+    // @ts-expect-error - navigator.deviceMemory is not in the TypeScript types
     const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory < 4
-    // @ts-ignore - navigator.hardwareConcurrency is not in the TypeScript types
     const hasLowCPU = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4
     
     setIsLowPerformance(hasLowMemory || hasLowCPU)

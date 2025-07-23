@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Award, Clock, Globe, Shield, Users, TrendingUp, Truck } from "lucide-react"
+import { ArrowRight, Award, Globe, Shield, Users, TrendingUp, Truck } from "lucide-react"
 import Link from "next/link"
 
 export default function About() {

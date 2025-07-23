@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { motion, useScroll, useTransform  } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Users, Package, Shield, ChevronDown } from "lucide-react"
+import { Users, Package, Shield } from "lucide-react"
 import Link from "next/link"
 
 export default function Hero() {

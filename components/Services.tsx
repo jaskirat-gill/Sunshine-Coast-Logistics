@@ -2,8 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { Truck, Clock, Globe, Shield, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Truck, Clock, Globe, Shield } from "lucide-react"
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null)

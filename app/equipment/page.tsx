@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion"
+import { motion, AnimatePresence, useInView } from "framer-motion"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, ChevronLeft, ArrowRight, Truck, Box, Thermometer, Layers } from "lucide-react"
@@ -11,14 +11,6 @@ export default function Equipment() {
   const [activeEquipment, setActiveEquipment] = useState(0)
   const containerRef = useRef<HTMLElement>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-  
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   
   const equipmentTypes = [
     {

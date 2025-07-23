@@ -16,23 +16,20 @@ const nextConfig: NextConfig = {
   // Enable production source maps for better debugging
   productionBrowserSourceMaps: false,
   
-  // Optimize fonts
-  optimizeFonts: true,
+  // Server external packages
+  serverExternalPackages: [],
   
   // Experimental features
   experimental: {
     // Optimize JavaScript bundles
     optimizePackageImports: ['framer-motion', 'lucide-react'],
     
-    // Enable server components where possible
-    serverComponentsExternalPackages: [],
-    
     // Optimize CSS
     optimizeCss: true,
   },
   
   // Configure webpack for better performance
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config) => {
     // Optimize SVGs
     config.module.rules.push({
       test: /\.svg$/,
