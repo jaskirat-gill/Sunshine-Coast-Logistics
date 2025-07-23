@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { Truck, Clock, Globe, Shield, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,14 +8,24 @@ import { Button } from "@/components/ui/button"
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
+  const [isReducedMotion, setIsReducedMotion] = useState(false)
+  
+  // Check for reduced motion preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+      setIsReducedMotion(mediaQuery.matches)
+    }
+  }, [])
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   })
   
+  // Simplified transform values with fewer interpolation points
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.8, 1, 1, 0.8])
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.9, 1, 1, 0.9])
   
   const services = [
     {
@@ -54,12 +64,12 @@ export default function Services() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-yellow-400/5 blur-3xl -z-10" />
       
       <motion.div 
-        className="container mx-auto px-4 relative"
+        className="container mx-auto px-4 relative will-change-transform"
         style={{ opacity, scale }}
       >
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: isReducedMotion ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: isReducedMotion ? 0 : 20 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
@@ -75,13 +85,13 @@ export default function Services() {
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: isReducedMotion ? 0 : 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: isReducedMotion ? 0 : 50 }}
               transition={{ 
                 duration: 0.6,
-                delay: service.delay,
+                delay: isReducedMotion ? 0 : service.delay,
               }}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              whileHover={isReducedMotion ? {} : { y: -8, transition: { duration: 0.3 } }}
               className="bg-white dark:bg-zinc-800/50 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-zinc-200 dark:border-zinc-700/50 group"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -89,7 +99,6 @@ export default function Services() {
               </div>
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-3">{service.title}</h3>
               <p className="text-zinc-600 dark:text-zinc-300 mb-5">{service.description}</p>
-              
             </motion.div>
           ))}
         </div>

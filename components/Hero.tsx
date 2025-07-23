@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Users, Package, Shield, ChevronDown } from "lucide-react"
@@ -11,12 +11,20 @@ export default function Hero() {
   const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, opacity: number}>>([])
   const isClient = useRef(false)
   
-  // Generate particles only on the client side
+  // Memoize the scroll handler to prevent unnecessary re-renders
+  const handleScroll = useCallback(() => {
+    const isScrolled = window.scrollY > 10
+    if (isScrolled !== scrolled) {
+      setScrolled(isScrolled)
+    }
+  }, [scrolled])
+  
+  // Generate particles only on the client side with reduced count
   useEffect(() => {
     isClient.current = true
     
-    // Generate random particles
-    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+    // Reduce particle count for better performance
+    const newParticles = Array.from({ length: 10 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -26,17 +34,18 @@ export default function Hero() {
     setParticles(newParticles)
   }, [])
   
+  // Use passive event listener for better scroll performance
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
-      }
-    }
-    
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [scrolled])
+  }, [handleScroll])
+  
+  // Use reduced motion preference for accessibility
+  const prefersReducedMotion = useRef(
+    typeof window !== 'undefined' 
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+      : false
+  )
   
   const { scrollYProgress } = useScroll()
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
@@ -60,36 +69,40 @@ export default function Hero() {
           muted
           playsInline
           className="w-full h-full object-cover"
+          preload="auto"
         >
           <source src="/hero_video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
 
-      {/* Animated particles - only rendered client-side */}
-      <div className="absolute inset-0 z-5 opacity-30">
-        {isClient.current && particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute w-1 h-1 md:w-2 md:h-2 bg-yellow-400 rounded-full"
-            initial={{ 
-              x: `${particle.x}%`, 
-              y: `${particle.y}%`,
-              opacity: particle.opacity
-            }}
-            animate={{ 
-              x: `${(particle.x + 50) % 100}%`, 
-              y: `${(particle.y + 50) % 100}%`,
-              opacity: [particle.opacity, particle.opacity + 0.2, particle.opacity]
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 10 + (particle.id % 10),
-              ease: "linear"
-            }}
-          />
-        ))}
-      </div>
+      {/* Animated particles - only rendered client-side with reduced animations */}
+      {!prefersReducedMotion.current && (
+        <div className="absolute inset-0 z-5 opacity-30">
+          {isClient.current && particles.map((particle) => (
+            <motion.div
+              key={particle.id}
+              className="absolute w-1 h-1 md:w-2 md:h-2 bg-yellow-400 rounded-full"
+              initial={{ 
+                x: `${particle.x}%`, 
+                y: `${particle.y}%`,
+                opacity: particle.opacity
+              }}
+              animate={{ 
+                x: `${(particle.x + 50) % 100}%`, 
+                y: `${(particle.y + 50) % 100}%`,
+                opacity: [particle.opacity, particle.opacity + 0.2, particle.opacity]
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 15 + (particle.id % 5), // Longer duration, fewer keyframes
+                ease: "linear",
+                repeatType: "reverse" // More efficient than complex paths
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <motion.div 
