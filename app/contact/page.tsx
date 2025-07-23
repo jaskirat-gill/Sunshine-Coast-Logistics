@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Phone, Mail, MapPin, Send, ArrowRight } from "lucide-react"
+import { Phone, Mail, MapPin, Send } from "lucide-react"
 import Image from "next/image"
 
 export default function Contact() {
@@ -117,12 +117,7 @@ export default function Contact() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full">
-                    View on Map
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
+              
               </div>
             </motion.div>
             

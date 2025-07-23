@@ -16,9 +16,6 @@ export default function About() {
     offset: ["start end", "end start"]
   })
   
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  
   // Parallax effect for images
   const imageY = useTransform(scrollYProgress, [0, 1], [0, -100])
   const textY = useTransform(scrollYProgress, [0, 1], [0, -50])
@@ -64,27 +61,6 @@ export default function About() {
     }
   ]
   
-  const teamMembers = [
-    {
-      name: "John Smith",
-      position: "CEO & Founder",
-      image: "/home_about_image.jpg", // Replace with actual team member image
-      bio: "With over 20 years of experience in the logistics industry, John founded Sunshine Coast Logistics with a vision to create a company that truly puts customers first."
-    },
-    {
-      name: "Sarah Johnson",
-      position: "Operations Director",
-      image: "/home_services_2.jpg", // Replace with actual team member image
-      bio: "Sarah oversees all operational aspects of our business, ensuring that our fleet runs efficiently and our customers receive exceptional service."
-    },
-    {
-      name: "Michael Chen",
-      position: "Fleet Manager",
-      image: "/home_services_3.jpg", // Replace with actual team member image
-      bio: "Michael manages our growing fleet of vehicles, focusing on maintenance, safety, and technological integration to optimize performance."
-    }
-  ]
-
   return (
     <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
       {/* Background with gradient and pattern */}
@@ -235,66 +211,6 @@ export default function About() {
         </div>
       </section>
       
-      {/* Our team section */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-4">
-          <motion.div
-            style={{ opacity, y }}
-          >
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8 }}
-              className="text-3xl md:text-5xl font-bold mb-6 text-center bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
-            >
-              Meet Our Team
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg md:text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto text-center mb-16"
-            >
-              Our experienced team of logistics professionals is dedicated to providing exceptional service
-            </motion.p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className="bg-white dark:bg-zinc-800/50 rounded-2xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700/50"
-                >
-                  {/* Team member image */}
-                  <div className="relative h-64">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    
-                    {/* Name and position overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-bold text-white mb-1">{member.name}</h3>
-                      <p className="text-yellow-400">{member.position}</p>
-                    </div>
-                  </div>
-                  
-                  {/* Bio */}
-                  <div className="p-6">
-                    <p className="text-zinc-700 dark:text-zinc-300">{member.bio}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
       
       {/* Company values visualization */}
       <section className="py-24 relative bg-zinc-100 dark:bg-zinc-900/50">

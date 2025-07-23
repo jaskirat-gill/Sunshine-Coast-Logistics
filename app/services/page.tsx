@@ -274,7 +274,7 @@ export default function Services() {
                 >
                   <Link href="/contact">
                     <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full">
-                      Get a Quote
+                      Contact
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>

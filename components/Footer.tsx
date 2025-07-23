@@ -33,7 +33,7 @@ export default function Footer() {
             
             {/* Main footer content */}
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
                     {/* Logo & Description */}
                     <div className="col-span-1">
                         <div className="flex items-center space-x-3 mb-4">
@@ -103,7 +103,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Newsletter or CTA */}
+                    {/* Newsletter or CTA
                     <div className="col-span-1">
                         <h3 className="text-zinc-900 dark:text-white font-bold mb-4">Get a Quote</h3>
                         <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
@@ -113,7 +113,7 @@ export default function Footer() {
                             Request a Quote
                             <ArrowUp className="ml-2 h-4 w-4 rotate-45" />
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

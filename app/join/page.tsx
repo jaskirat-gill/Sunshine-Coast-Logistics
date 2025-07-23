@@ -37,8 +37,8 @@ export default function JoinUs() {
       icon: Star
     },
     {
-      title: "Health Benefits",
-      description: "Comprehensive health, dental, and vision coverage for you and your family.",
+      title: " Benefits",
+      description: "Comprehensive benefits for you and your family.",
       icon: Shield
     },
     {
