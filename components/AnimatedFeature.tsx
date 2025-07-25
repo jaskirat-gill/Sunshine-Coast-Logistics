@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePres
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function AnimatedFeature() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -64,27 +65,6 @@ export default function AnimatedFeature() {
       scaleSpring.set(0.8)
     }
   }, [isInView, scaleSpring])
-  
-  const features = [
-    {
-      title: "Nationwide Coverage",
-      description: "Our extensive network spans across North America, ensuring your shipments reach their destination on time, every time.",
-      image: "/home_services_1.jpg",
-      color: "from-yellow-400 to-yellow-600"
-    },
-    {
-      title: "Advanced Fleet Technology",
-      description: "State-of-the-art tracking systems and modern vehicles provide real-time updates and maximum efficiency.",
-      image: "/home_services_2.jpg",
-      color: "from-yellow-500 to-yellow-700"
-    },
-    {
-      title: "Expert Logistics Team",
-      description: "Our experienced professionals design customized shipping solutions tailored to your specific business needs.",
-      image: "/home_services_3.jpg",
-      color: "from-yellow-300 to-yellow-500"
-    }
-  ]
 
   return (
     <section ref={containerRef} className="relative py-24 overflow-hidden bg-zinc-100 dark:bg-black">
@@ -119,7 +99,7 @@ export default function AnimatedFeature() {
             transition={{ duration: 0.8 }}
             className="text-4xl pb-4 md:text-6xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
           >
-            Logistics Excellence
+            {MASTER_DATA.feature.title}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -127,14 +107,14 @@ export default function AnimatedFeature() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl pb-4 md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto"
           >
-            Delivering exceptional service with cutting-edge technology
+            {MASTER_DATA.feature.description}
           </motion.p>
         </motion.div>
         
         {/* Main animated feature */}
         <div className="relative h-[700px] md:h-[800px] mb-16">
           <AnimatePresence mode="wait">
-            {features.map((feature, index) => (
+            {MASTER_DATA.feature.points.map((feature, index) => (
               index === currentIndex && (
                 <motion.div
                   key={index}
@@ -212,7 +192,7 @@ export default function AnimatedFeature() {
           
           {/* Navigation dots */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
-            {features.map((_, index) => (
+            {MASTER_DATA.feature.points.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
@@ -229,11 +209,7 @@ export default function AnimatedFeature() {
         
         {/* Animated statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-          {[
-            { value: "10+", label: "Years of Experience" },
-            { value: "1,000+", label: "Satisfied Clients" },
-            { value: "500,000+", label: "Shipments Completed" }
-          ].map((stat, index) => (
+          {MASTER_DATA.feature.stats.map((stat, index) => (
             <motion.div
               key={index}
               className="bg-gradient-to-br from-white/70 to-white/40 dark:from-zinc-800/40 dark:to-zinc-900/20 backdrop-blur-lg rounded-2xl p-8 text-center shadow-lg border border-white/20 dark:border-zinc-700/30 relative overflow-hidden"

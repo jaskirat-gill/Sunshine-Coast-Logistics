@@ -1,15 +1,12 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, useScroll, useTransform  } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Users, Package, Shield } from "lucide-react"
-import Link from "next/link"
+import { AnimatedButton } from "@/components/ui/button"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, opacity: number}>>([])
-  const isClient = useRef(false)
   
   // Memoize the scroll handler to prevent unnecessary re-renders
   const handleScroll = useCallback(() => {
@@ -19,44 +16,17 @@ export default function Hero() {
     }
   }, [scrolled])
   
-  // Generate particles only on the client side with reduced count
-  useEffect(() => {
-    isClient.current = true
-    
-    // Reduce particle count for better performance
-    const newParticles = Array.from({ length: 10 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      opacity: Math.random() * 0.5 + 0.3
-    }))
-    
-    setParticles(newParticles)
-  }, [])
-  
   // Use passive event listener for better scroll performance
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [handleScroll])
   
-  // Use reduced motion preference for accessibility
-  const prefersReducedMotion = useRef(
-    typeof window !== 'undefined' 
-      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-      : false
-  )
   
   const { scrollYProgress } = useScroll()
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.98])
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 50])
-  
-  const stats = [
-    { icon: Users, label: "Over 1,000", sublabel: "businesses working with us", delay: 0.2 },
-    { icon: Package, label: "Over 100,000", sublabel: "shipments per year", delay: 0.4 },
-    { icon: Shield, label: "Your satisfaction", sublabel: "guaranteed", delay: 0.6 },
-  ]
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28">
@@ -76,33 +46,6 @@ export default function Hero() {
         </video>
       </div>
 
-      {/* Animated particles - only rendered client-side with reduced animations */}
-      {!prefersReducedMotion.current && (
-        <div className="absolute inset-0 z-5 opacity-30">
-          {isClient.current && particles.map((particle) => (
-            <motion.div
-              key={particle.id}
-              className="absolute w-1 h-1 md:w-2 md:h-2 bg-yellow-400 rounded-full"
-              initial={{ 
-                x: `${particle.x}%`, 
-                y: `${particle.y}%`,
-                opacity: particle.opacity
-              }}
-              animate={{ 
-                x: `${(particle.x + 50) % 100}%`, 
-                y: `${(particle.y + 50) % 100}%`,
-                opacity: [particle.opacity, particle.opacity + 0.2, particle.opacity]
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 15 + (particle.id % 5), // Longer duration, fewer keyframes
-                ease: "linear",
-                repeatType: "reverse" // More efficient than complex paths
-              }}
-            />
-          ))}
-        </div>
-      )}
 
       {/* Content */}
       <motion.div 
@@ -134,7 +77,7 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto"
           >
-            Delivering logistics excellence with speed, reliability, and precision across the continent
+            {MASTER_DATA.hero.tagline}
           </motion.p>
 
           <motion.div
@@ -143,35 +86,20 @@ export default function Hero() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full relative overflow-hidden group"
+            <AnimatedButton
+              variant="primary"
+              href="/contact"
+              className="text-lg px-8"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-black/0 via-black/10 to-black/0 group-hover:animate-shimmer" />
-              <span className="absolute inset-0 w-0 bg-gradient-to-r from-yellow-600 to-yellow-800 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
-              <span className="relative z-10 flex items-center transition-all duration-300">
-                <Link href="/contact" className="relative inline-block text-white font-semibold group-hover:text-white transition-colors duration-300">
-                  Contact Us
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black/50 group-hover:bg-white/50 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </span>
-              <span className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-20 bg-white blur-md group-hover:animate-pulse transition-all duration-500"></span>
-            </Button>
-            <Button
-              size="lg"
+              Contact Us
+            </AnimatedButton>
+            <AnimatedButton
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-full relative overflow-hidden group"
+              href="/about"
+              className="text-lg px-8 text-yellow-400 group-hover:text-yellow-300 border-white/30"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-400/0 via-yellow-400/30 to-yellow-400/0 group-hover:animate-shimmer" />
-              <span className="absolute inset-0 w-0 bg-gradient-to-r from-white/5 to-white/20 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
-              <span className="relative z-10  bg-clip-text text-transparent group-hover:from-yellow-300 group-hover:to-yellow-500 transition-all duration-300">
-                <Link href="/about" className="relative inline-block text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300">
-                  Learn More
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </span>
-              <span className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-10 bg-yellow-400 blur-md group-hover:animate-pulse transition-all duration-500"></span>
-            </Button>
+              Learn More
+            </AnimatedButton>
           </motion.div>
         </motion.div>
 
@@ -182,7 +110,7 @@ export default function Hero() {
           transition={{ delay: 1, duration: 0.8 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-4xl mx-auto"
         >
-          {stats.map((stat, index) => (
+          {MASTER_DATA.hero.stats.map((stat, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}

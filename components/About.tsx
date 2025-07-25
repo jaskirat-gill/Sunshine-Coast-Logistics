@@ -2,9 +2,10 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { Award, Clock, Globe, Shield, ArrowRight } from "lucide-react"
+import { Award, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -19,29 +20,6 @@ export default function About() {
   const imageOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   const contentX = useTransform(scrollYProgress, [0, 0.5, 1], [-50, 0, -50])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  
-  const features = [
-    {
-      icon: Award,
-      title: "Industry Excellence",
-      description: "Over 20 years of experience in logistics and transportation management",
-    },
-    {
-      icon: Clock,
-      title: "24/7 Support",
-      description: "Round-the-clock customer support and real-time shipment monitoring",
-    },
-    {
-      icon: Globe,
-      title: "Global Reach",
-      description: "Extensive network covering major shipping routes worldwide",
-    },
-    {
-      icon: Shield,
-      title: "Secure & Reliable",
-      description: "Advanced security measures and reliable service delivery",
-    },
-  ]
 
   return (
     <section id="about" className="py-24 relative overflow-hidden" ref={containerRef}>
@@ -78,8 +56,7 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-xl text-zinc-700 dark:text-zinc-300 mb-8 leading-relaxed max-w-2xl"
             >
-              We are a leading logistics platform connecting shippers and carriers across the Sunshine Coast and beyond.
-              Our digital ecosystem provides comprehensive solutions for modern transportation challenges.
+              {MASTER_DATA.landing_about.tagline}
             </motion.p>
             
             <motion.p
@@ -88,12 +65,11 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl"
             >
-              From transport tenders to real-time cargo tracking, we leverage cutting-edge technology to streamline
-              logistics operations and deliver exceptional value to our clients.
+              {MASTER_DATA.landing_about.subTagline}
             </motion.p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
-              {features.map((feature, index) => (
+              {MASTER_DATA.landing_about.features.map((feature, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -169,7 +145,7 @@ export default function About() {
                   </div>
                   <div>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400">Trusted by</p>
-                    <p className="text-sm font-bold text-zinc-900 dark:text-white">1,000+ Businesses</p>
+                    <p className="text-sm font-bold text-zinc-900 dark:text-white">{MASTER_DATA.landing_about.numBusinesses} Businesses</p>
                   </div>
                 </div>
               </motion.div>

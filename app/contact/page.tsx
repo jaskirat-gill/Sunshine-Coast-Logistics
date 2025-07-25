@@ -2,11 +2,12 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Send } from "lucide-react"
 import Image from "next/image"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Contact() {
   const containerRef = useRef<HTMLElement>(null)
@@ -22,13 +23,6 @@ export default function Contact() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
   const y = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [100, 0, 0, 100])
   
-  const formFields = [
-    { label: "Name", placeholder: "Your full name", required: true, type: "text", half: true },
-    { label: "Company", placeholder: "Company name (optional)", required: false, type: "text", half: true },
-    { label: "Email", placeholder: "your.email@example.com", required: true, type: "email", half: false },
-    { label: "Phone", placeholder: "(555) 123-4567", required: false, type: "tel", half: false },
-  ]
-
   return (
     <section ref={containerRef} className="py-24 relative overflow-hidden min-h-screen">
       {/* Light background gradient */}
@@ -58,7 +52,7 @@ export default function Contact() {
               </span>
             </h1>
             <p className="text-zinc-700 dark:text-zinc-300 text-xl max-w-2xl mx-auto">
-              Ready to streamline your logistics operations? Contact us for a personalized consultation.
+              {MASTER_DATA.contact_page.tagline}
             </p>
           </motion.div>
           
@@ -80,8 +74,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-zinc-900 dark:text-white font-medium mb-1">Phone</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">+1 (555) 123-4567</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">+1 (555) 987-6543</p>
+                    <p className="text-zinc-600 dark:text-zinc-300">{MASTER_DATA.contact.phone}</p>
+                    <p className="text-zinc-600 dark:text-zinc-300">{MASTER_DATA.contact.cell}</p>
                   </div>
                 </div>
                 
@@ -91,8 +85,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-zinc-900 dark:text-white font-medium mb-1">Email</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">info@sunshinecoastlogistics.com</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">support@sunshinecoastlogistics.com</p>
+                    <p className="text-zinc-600 dark:text-zinc-300">{MASTER_DATA.contact.email}</p>
                   </div>
                 </div>
                 
@@ -102,9 +95,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-zinc-900 dark:text-white font-medium mb-1">Address</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">123 Logistics Way</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">Sunshine Coast, BC V8X 1Z3</p>
-                    <p className="text-zinc-600 dark:text-zinc-300">Canada</p>
+                    <p className="text-zinc-600 dark:text-zinc-300">{MASTER_DATA.contact.address}</p>
                   </div>
                 </div>
               </div>
@@ -133,7 +124,7 @@ export default function Contact() {
               
               <form className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {formFields.map((field, index) => (
+                  {MASTER_DATA.contact_page.formFields.map((field, index) => (
                     field.half ? (
                       <div key={index} className="space-y-2">
                         <label className="text-zinc-900 dark:text-white text-sm font-medium block">
@@ -179,10 +170,13 @@ export default function Contact() {
                   animate={isFormInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
                 >
-                  <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full py-6 text-lg">
+                  <AnimatedButton 
+                    variant="primary"
+                    className="w-full text-black"
+                  >
                     Send Message
                     <Send className="ml-2 h-5 w-5" />
-                  </Button>
+                  </AnimatedButton>
                 </motion.div>
               </form>
             </motion.div>

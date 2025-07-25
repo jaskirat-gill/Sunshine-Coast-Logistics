@@ -3,6 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion"
 import { Truck } from "lucide-react"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Map() {
   const [mouseX, setMouseX] = useState(0)
@@ -91,13 +92,12 @@ export default function Map() {
           <div className="absolute inset-0 w-full h-full dark:bg-gradient-to-r dark:from-black/80 dark:via-black/70 dark:to-black z-0"></div>
 
           <div className="relative z-10">
-            <h3 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4 text-center">Global Logistics Network</h3>
+            <h3 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4 text-center">{MASTER_DATA.map.title}</h3>
             <p className="text-zinc-700 dark:text-zinc-300 text-center mb-8 max-w-2xl mx-auto">
-              Our platform connects carriers and shippers worldwide, providing seamless logistics solutions across
-              continents.
+              {MASTER_DATA.map.description}
             </p>
 
-            {/* World Map with Enhanced Animated Trucks */}
+            {/* World Map */}
             <div className="relative w-full h-96 flex items-center justify-center">
               {/* World Map SVG */}
               <motion.div 
@@ -126,42 +126,7 @@ export default function Map() {
                 transition={{ duration: 1.5, ease: [0.25, 1, 0.5, 1], delay: 0.2 }}
               />
               
-              
-              {/* Animated data flow */}
-              {isMapInView && (
-                <motion.div 
-                  className="absolute inset-0 z-5 overflow-hidden"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.7 }}
-                  transition={{ delay: 2, duration: 1 }}
-                >
-                  {[...Array(20)].map((_, i) => (
-                    <motion.div
-                      key={`flow-${i}`}
-                      className="absolute bg-yellow-400 rounded-full opacity-70"
-                      style={{ 
-                        width: Math.random() * 4 + 2,
-                        height: Math.random() * 4 + 2,
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                      animate={{ 
-                        left: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
-                        top: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
-                        opacity: [0, 0.7, 0],
-                        scale: [0, 1, 0],
-                      }}
-                      transition={{ 
-                        duration: Math.random() * 5 + 5,
-                        delay: Math.random() * 5,
-                        repeat: Infinity,
-                        repeatDelay: Math.random() * 3,
-                      }}
-                    />
-                  ))}
-                </motion.div>
-              )}
-              
+  
               {/* Floating info card */}
               <motion.div
                 className="absolute bottom-10 right-10 bg-white dark:bg-zinc-800 rounded-xl p-4 shadow-xl border border-zinc-200 dark:border-zinc-700 z-40 w-64"
@@ -174,9 +139,9 @@ export default function Map() {
                     <Truck className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-zinc-900 dark:text-white font-bold text-sm">Network Statistics</h4>
-                    <p className="text-zinc-600 dark:text-zinc-400 text-xs">500+ active routes</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 text-xs">98.7% on-time delivery</p>
+                    <h4 className="text-zinc-900 dark:text-white font-bold text-sm">{MASTER_DATA.map.stats.title}</h4>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-xs">{MASTER_DATA.map.stats.point1}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-xs">{MASTER_DATA.map.stats.point2}</p>
                   </div>
                 </div>
                 <motion.div 

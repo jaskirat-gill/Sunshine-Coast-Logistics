@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 
@@ -56,4 +57,79 @@ function Button({
   )
 }
 
-export { Button, buttonVariants }
+// Animated Button variants
+const animatedButtonVariants = {
+  primary: "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full relative overflow-hidden group",
+  outline: "border-white/30 text-white hover:bg-white/10 rounded-full relative overflow-hidden group",
+  default: "relative overflow-hidden group rounded-full",
+}
+
+interface AnimatedButtonProps extends React.ComponentProps<"button"> {
+  variant?: "primary" | "outline" | "default"
+  href?: string
+  size?: "default" | "sm" | "lg" | "icon"
+  children: React.ReactNode
+}
+
+function AnimatedButton({
+  className,
+  variant = "default",
+  size = "lg",
+  href,
+  children,
+  ...props
+}: AnimatedButtonProps) {
+  const buttonContent = (
+    <>
+      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-black/0 via-black/10 to-black/0 group-hover:animate-shimmer" />
+      <span className={cn(
+        "absolute inset-0 w-0 group-hover:w-full transition-all duration-500 ease-out rounded-full",
+        variant === "primary" ? "bg-gradient-to-r from-yellow-600 to-yellow-800" : "bg-gradient-to-r from-white/5 to-white/20"
+      )} />
+      <span className="relative z-10 flex items-center transition-all duration-300">
+        {children}
+      </span>
+      <span className={cn(
+        "absolute -inset-1 rounded-full opacity-0 blur-md group-hover:animate-pulse transition-all duration-500",
+        variant === "primary" ? "group-hover:opacity-20 bg-white" : "group-hover:opacity-10 bg-yellow-400"
+      )}></span>
+    </>
+  )
+
+  // If href is provided, wrap with Link
+  if (href) {
+    return (
+      <Button
+        className={cn(
+          animatedButtonVariants[variant],
+          "py-6 text-lg",
+          className
+        )}
+        size={size}
+        asChild
+        {...props}
+      >
+        <Link href={href}>
+          {buttonContent}
+        </Link>
+      </Button>
+    )
+  }
+
+  // Otherwise, render as regular button
+  return (
+    <Button
+      className={cn(
+        animatedButtonVariants[variant],
+        "py-6 text-lg",
+        className
+      )}
+      size={size}
+      {...props}
+    >
+      {buttonContent}
+    </Button>
+  )
+}
+
+export { Button, AnimatedButton, buttonVariants }

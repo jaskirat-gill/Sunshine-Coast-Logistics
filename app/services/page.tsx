@@ -3,10 +3,11 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Truck, Globe, Clock, Shield, ChevronDown } from "lucide-react"
+import { AnimatedButton } from "@/components/ui/button"
+import { ArrowRight, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import AnimatedFeature from "@/components/AnimatedFeature"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Services() {
   const containerRef = useRef<HTMLElement>(null)
@@ -21,61 +22,6 @@ export default function Services() {
   const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100])
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
   
-  const services = [
-    {
-      title: "FTL (Full Truck Load)",
-      icon: Truck,
-      description: "We provide reliable pick-ups and deliveries, competitive rates, and courteous customer service for Full Truck Load freight. Whether Flatbed, Dry Van, one skid or half a trailer, Sunshine Coast Logistics has you covered from coast to coast.",
-      image: "/home_services_1.jpg",
-      features: [
-        "Dedicated capacity for your shipments",
-        "Direct point-to-point transportation",
-        "Reduced handling and transit time",
-        "Ideal for time-sensitive or high-volume shipments",
-        "Full visibility and tracking throughout transit"
-      ]
-    },
-    {
-      title: "LTL (Less Than Truck Load)",
-      icon: Globe,
-      description: "Not every shipment requires a full trailer. Our team offers reliable pick-ups and deliveries for Less Than Truck Load freight, ensuring flexibility and efficiency for smaller shipments.",
-      image: "/home_services_2.jpg",
-      features: [
-        "Cost-effective solution for smaller shipments",
-        "Flexible scheduling options",
-        "Consolidated delivery network",
-        "Professional handling of partial loads",
-        "Specialized equipment for various cargo types"
-      ]
-    },
-    {
-      title: "Expedited Shipping",
-      icon: Clock,
-      description: "When time is critical, our expedited shipping services ensure your freight arrives at its destination as quickly as possible, with priority handling and direct routes.",
-      image: "/home_services_3.jpg",
-      features: [
-        "Time-critical delivery solutions",
-        "Priority handling and routing",
-        "Team drivers for non-stop transit",
-        "Real-time tracking and updates",
-        "Available 24/7/365 for emergency shipments"
-      ]
-    },
-    {
-      title: "Specialized Logistics",
-      icon: Shield,
-      description: "Our specialized logistics services cater to unique transportation needs, including oversized loads, hazardous materials, and high-value shipments requiring extra security measures.",
-      image: "/home_services_4.jpg",
-      features: [
-        "Custom solutions for unique shipping requirements",
-        "Experienced handling of oversized and overweight freight",
-        "Hazardous materials transportation compliance",
-        "High-value shipment security protocols",
-        "Specialized equipment and trained personnel"
-      ]
-    }
-  ]
-
   const toggleService = (index: number) => {
     if (openService === index) {
       setOpenService(null)
@@ -104,7 +50,7 @@ export default function Services() {
               Our Services
             </h1>
             <p className="text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto">
-              Comprehensive logistics solutions tailored to your business needs
+              {MASTER_DATA.services_page.tagline}
             </p>
           </motion.div>
         </div>
@@ -126,11 +72,11 @@ export default function Services() {
               transition={{ duration: 0.8 }}
               className="text-3xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
             >
-              Explore Our Services
+              {MASTER_DATA.services_page.tagline2}
             </motion.h2>
             
             <div className="space-y-6">
-              {services.map((service, index) => (
+              {MASTER_DATA.services_page.services.map((service, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
@@ -187,14 +133,6 @@ export default function Services() {
                                 </motion.li>
                               ))}
                             </ul>
-                            <div className="mt-8">
-                              <Link href="/contact">
-                                <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full">
-                                  Request This Service
-                                  <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                              </Link>
-                            </div>
                           </div>
                           
                           {/* Service image */}
@@ -236,7 +174,7 @@ export default function Services() {
                   transition={{ duration: 0.8 }}
                   className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
                 >
-                  Service Coverage
+                  {MASTER_DATA.services_page.mapCoverage}
                 </motion.h2>
                 
                 <motion.p
@@ -245,15 +183,11 @@ export default function Services() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-lg text-zinc-700 dark:text-zinc-300 mb-8"
                 >
-                  Our extensive network spans across North America, ensuring reliable and efficient logistics services wherever your business needs them.
+                  {MASTER_DATA.services_page.mapDescription}
                 </motion.p>
                 
                 <div className="space-y-6">
-                  {[
-                    { title: "Canada Coverage", description: "Complete coverage across all Canadian provinces with specialized expertise in BC logistics." },
-                    { title: "US Coverage", description: "Comprehensive service throughout the continental United States with strategic partnerships." },
-                    { title: "Cross-Border Expertise", description: "Seamless cross-border shipping with customs documentation management." }
-                  ].map((item, index) => (
+                  {MASTER_DATA.services_page.mapPoints.map((item, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 20 }}
@@ -272,12 +206,14 @@ export default function Services() {
                   transition={{ duration: 0.8, delay: 0.8 }}
                   className="mt-8"
                 >
-                  <Link href="/contact">
-                    <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full">
-                      Contact
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <AnimatedButton 
+                    variant="primary" 
+                    href="/contact"
+                    className="text-black"
+                  >
+                    {MASTER_DATA.services_page.cta.button}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </AnimatedButton>
                 </motion.div>
               </div>
               
@@ -343,16 +279,19 @@ export default function Services() {
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Need Custom Logistics Solutions?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{MASTER_DATA.services_page.cta.tagline}</h2>
                 <p className="text-xl text-black/80 max-w-xl">
-                  Our team of experts will work with you to design a tailored logistics plan that meets your specific business requirements.
+                  {MASTER_DATA.services_page.cta.description}
                 </p>
               </div>
               <Link href="/contact">
-                <Button className="bg-black text-white hover:bg-zinc-800 text-lg px-8 py-6 rounded-full">
-                  Contact Us
+                <AnimatedButton 
+                  variant="default" 
+                  className="bg-black text-white hover:bg-zinc-800 text-lg px-8"
+                >
+                  {MASTER_DATA.services_page.cta.button}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                </AnimatedButton>
               </Link>
             </div>
           </motion.div>

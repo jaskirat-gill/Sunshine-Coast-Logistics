@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { Truck, Clock, Globe, Shield } from "lucide-react"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -25,33 +25,6 @@ export default function Services() {
   // Simplified transform values with fewer interpolation points
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.9, 1, 1, 0.9])
-  
-  const services = [
-    {
-      icon: Truck,
-      title: "Express Delivery",
-      description: "Time-critical shipments delivered with precision and care across North America.",
-      delay: 0.1
-    },
-    {
-      icon: Clock,
-      title: "24/7 Support",
-      description: "Round-the-clock customer service and real-time tracking for complete peace of mind.",
-      delay: 0.2
-    },
-    {
-      icon: Globe,
-      title: "Nationwide Coverage",
-      description: "Extensive network spanning all major routes and destinations in North America.",
-      delay: 0.3
-    },
-    {
-      icon: Shield,
-      title: "Secure Transport",
-      description: "Advanced security protocols and careful handling for your valuable shipments.",
-      delay: 0.4
-    }
-  ]
 
   return (
     <section ref={containerRef} className="py-24 relative overflow-hidden">
@@ -73,15 +46,15 @@ export default function Services() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent">
-            Logistics Excellence
+            {MASTER_DATA.landing_services.title}
           </h2>
           <p className="text-lg md:text-xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto">
-            Innovative solutions tailored to your specific transportation needs
+            {MASTER_DATA.landing_services.description}
           </p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+          {MASTER_DATA.landing_services.points.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: isReducedMotion ? 0 : 50 }}

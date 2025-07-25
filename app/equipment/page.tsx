@@ -3,60 +3,16 @@
 import { useState, useRef } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { ChevronRight, ChevronLeft, ArrowRight, Truck, Box, Thermometer, Layers } from "lucide-react"
+import { AnimatedButton } from "@/components/ui/button"
+import { ChevronRight, ChevronLeft, ArrowRight, Box } from "lucide-react"
 import Link from "next/link"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function Equipment() {
   const [activeEquipment, setActiveEquipment] = useState(0)
   const containerRef = useRef<HTMLElement>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
   
-  const equipmentTypes = [
-    {
-      name: "Dry Vans",
-      icon: Truck,
-      description: "Our late-model dry van trailers are equipped with logistics tracks, wood floors, and vents. We only use plated dry vans with a snag-free finish allowing for maximum width for your specific needs.",
-      features: [
-        "53' Trailers",
-        "Air-ride suspension",
-        "Logistics posts",
-        "Roll-up or swing doors",
-        "Ideal for non-perishable goods"
-      ],
-      image: "/home_services_1.jpg", // Replace with actual image
-      color: "from-yellow-400 to-yellow-600"
-    },
-    {
-      name: "Refrigerated Trailers",
-      icon: Thermometer,
-      description: "Transporting temperature and time-sensitive truckloads with specific requirements is a challenging task. Sunshine Coast Refrigerated executes these requirements with state of the art equipment and information technology.",
-      features: [
-        "Temperature-controlled environment",
-        "Real-time temperature monitoring",
-        "Multi-temperature zones available",
-        "Backup power systems",
-        "Suitable for perishable goods"
-      ],
-      image: "/home_services_2.jpg", // Replace with actual image
-      color: "from-yellow-500 to-yellow-700"
-    },
-    {
-      name: "Flatbeds",
-      icon: Layers,
-      description: "Sunshine Coast offers a versatile flatbed fleet that is able to transport any type of awkward load to and from anywhere in North America. An assortment of flatbeds ranging from 48' -53' tandem and triaxle.",
-      features: [
-        "48' to 53' lengths available",
-        "Tandem and triaxle options",
-        "Heavy-duty securing points",
-        "Specialized strapping systems",
-        "Perfect for oversized loads"
-      ],
-      image: "/home_services_3.jpg", // Replace with actual image
-      color: "from-yellow-300 to-yellow-500"
-    }
-  ]
-
   return (
     <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
       {/* Background with gradient and pattern */}
@@ -77,7 +33,7 @@ export default function Equipment() {
               Our Equipment
             </h1>
             <p className="text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-3xl mx-auto">
-              State-of-the-art fleet designed to meet all your logistics needs
+              {MASTER_DATA.equipment_page.tagline}
             </p>
           </motion.div>
         </div>
@@ -88,7 +44,7 @@ export default function Equipment() {
         <div className="container mx-auto px-4">
           {/* Equipment selector */}
           <div className="flex flex-wrap justify-center mb-12 gap-4">
-            {equipmentTypes.map((equipment, index) => (
+            {MASTER_DATA.equipment_page.equipment.map((equipment, index) => (
               <motion.button
                 key={index}
                 onClick={() => setActiveEquipment(index)}
@@ -109,7 +65,7 @@ export default function Equipment() {
           {/* Equipment display */}
           <div className="relative h-[600px] md:h-[700px] mb-16">
             <AnimatePresence mode="wait">
-              {equipmentTypes.map((equipment, index) => (
+              {MASTER_DATA.equipment_page.equipment.map((equipment, index) => (
                 activeEquipment === index && (
                   <motion.div
                     key={index}
@@ -162,7 +118,7 @@ export default function Equipment() {
                         >
                           <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-4">Key Features:</h3>
                           <ul className="space-y-2">
-                            {equipment.features.map((feature, i) => (
+                            {MASTER_DATA.equipment_page.equipment[activeEquipment].features.map((feature, i) => (
                               <motion.li
                                 key={i}
                                 className="flex items-center text-zinc-700 dark:text-zinc-300"
@@ -183,10 +139,10 @@ export default function Equipment() {
                           transition={{ delay: 1.2, duration: 0.8 }}
                         >
                           <Link href="/contact">
-                            <Button className={`bg-gradient-to-r ${equipment.color} text-black hover:brightness-110 text-lg px-8 py-6 rounded-full`}>
+                            <AnimatedButton className={`bg-gradient-to-r ${equipment.color} text-black hover:brightness-110 text-lg px-8 py-6 rounded-full`}>
                               Request This Equipment
                               <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
+                            </AnimatedButton>
                           </Link>
                         </motion.div>
                       </motion.div>
@@ -236,7 +192,7 @@ export default function Equipment() {
             {/* Navigation arrows */}
             <div className="absolute inset-x-0 top-1/2 transform -translate-y-1/2 flex justify-between px-4 z-10">
               <motion.button
-                onClick={() => setActiveEquipment((prev) => (prev === 0 ? equipmentTypes.length - 1 : prev - 1))}
+                onClick={() => setActiveEquipment((prev) => (prev === 0 ? MASTER_DATA.equipment_page.equipment.length - 1 : prev - 1))}
                 className="w-12 h-12 rounded-full bg-white dark:bg-zinc-800 shadow-lg flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-yellow-500 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -244,7 +200,7 @@ export default function Equipment() {
                 <ChevronLeft className="w-6 h-6" />
               </motion.button>
               <motion.button
-                onClick={() => setActiveEquipment((prev) => (prev === equipmentTypes.length - 1 ? 0 : prev + 1))}
+                onClick={() => setActiveEquipment((prev) => (prev === MASTER_DATA.equipment_page.equipment.length - 1 ? 0 : prev + 1))}
                 className="w-12 h-12 rounded-full bg-white dark:bg-zinc-800 shadow-lg flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-yellow-500 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -271,16 +227,16 @@ export default function Equipment() {
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Need Custom Equipment?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{MASTER_DATA.equipment_page.cta.tagline}</h2>
                 <p className="text-xl text-black/80 max-w-xl">
-                  We offer specialized equipment solutions tailored to your unique shipping requirements. Contact our team to discuss your needs.
+                  {MASTER_DATA.equipment_page.cta.description}
                 </p>
               </div>
               <Link href="/contact">
-                <Button className="bg-black text-white hover:bg-zinc-800 text-lg px-8 py-6 rounded-full">
-                  Contact Us
+                <AnimatedButton className="bg-black text-white hover:bg-zinc-800 text-lg px-8 py-6 rounded-full">
+                  {MASTER_DATA.equipment_page.cta.button}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                </AnimatedButton>
               </Link>
             </div>
           </motion.div>

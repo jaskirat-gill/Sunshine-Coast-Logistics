@@ -3,11 +3,12 @@
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Truck, Users, Clock, Shield, Check, Star, ChevronDown } from "lucide-react"
+import { AnimatedButton } from "@/components/ui/button"
+import { ArrowRight, Check, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { MASTER_DATA } from "@/lib/data"
 
 export default function JoinUs() {
   const containerRef = useRef<HTMLElement>(null)
@@ -29,76 +30,6 @@ export default function JoinUs() {
       setActivePosition(index)
     }
   }
-  
-  const benefits = [
-    {
-      title: "Competitive Compensation",
-      description: "We offer industry-leading pay packages with performance bonuses and regular salary reviews.",
-      icon: Star
-    },
-    {
-      title: " Benefits",
-      description: "Comprehensive benefits for you and your family.",
-      icon: Shield
-    },
-    {
-      title: "Work-Life Balance",
-      description: "Flexible scheduling options and generous paid time off to ensure you stay refreshed.",
-      icon: Clock
-    },
-    {
-      title: "Career Growth",
-      description: "Ongoing training and clear advancement paths to help you reach your professional goals.",
-      icon: Users
-    },
-    {
-      title: "Modern Equipment",
-      description: "Drive late-model, well-maintained vehicles equipped with the latest technology.",
-      icon: Truck
-    }
-  ]
-  
-  const openPositions = [
-    {
-      title: "Long-Haul Truck Driver",
-      location: "British Columbia",
-      type: "Full-time",
-      description: "Join our team of professional drivers transporting freight across North America. We're looking for experienced CDL holders with a clean driving record and dedication to safety.",
-      requirements: [
-        "Valid Class 1/A Commercial Driver's License",
-        "Minimum 2 years of verifiable driving experience",
-        "Clean driving record",
-        "Ability to pass DOT physical and drug screening",
-        "Strong communication skills"
-      ]
-    },
-    {
-      title: "Logistics Coordinator",
-      location: "Sunshine Coast, BC",
-      type: "Full-time",
-      description: "Coordinate and optimize freight movement, working closely with drivers, customers, and operations team to ensure efficient and timely deliveries.",
-      requirements: [
-        "Bachelor's degree in logistics, supply chain, or related field (or equivalent experience)",
-        "2+ years experience in logistics coordination",
-        "Proficiency in transportation management systems",
-        "Strong problem-solving and organizational skills",
-        "Excellent communication abilities"
-      ]
-    },
-    {
-      title: "Fleet Maintenance Technician",
-      location: "Sunshine Coast, BC",
-      type: "Full-time",
-      description: "Maintain and repair our fleet of trucks and trailers, ensuring they meet all safety standards and remain in optimal operating condition.",
-      requirements: [
-        "Certified diesel mechanic with 3+ years experience",
-        "Experience with preventative maintenance programs",
-        "Knowledge of DOT regulations",
-        "Ability to troubleshoot and repair various vehicle systems",
-        "Valid driver's license"
-      ]
-    }
-  ]
 
   return (
     <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
@@ -171,7 +102,7 @@ export default function JoinUs() {
               style={{ opacity, y }}
               className="space-y-6"
             >
-              {benefits.map((benefit, index) => (
+              {MASTER_DATA.join_page.benefits.map((benefit, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -220,7 +151,7 @@ export default function JoinUs() {
             </motion.p>
             
             <div className="space-y-6 max-w-4xl mx-auto">
-              {openPositions.map((position, index) => (
+              {MASTER_DATA.join_page.positions.map((position, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -280,10 +211,13 @@ export default function JoinUs() {
                             </ul>
                             
                             <Link href="#application-form">
-                              <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full">
+                              <AnimatedButton 
+                                variant="primary" 
+                                className="text-black"
+                              >
                                 Apply Now
                                 <ArrowRight className="ml-2 h-4 w-4" />
-                              </Button>
+                              </AnimatedButton>
                             </Link>
                           </div>
                         </div>
@@ -391,7 +325,7 @@ export default function JoinUs() {
                       className="w-full h-10 px-3 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md text-zinc-900 dark:text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
                     >
                       <option value="">Select a position</option>
-                      {openPositions.map((position, index) => (
+                      {MASTER_DATA.join_page.positions.map((position, index) => (
                         <option key={index} value={position.title}>{position.title}</option>
                       ))}
                       <option value="other">Other</option>
@@ -445,10 +379,13 @@ export default function JoinUs() {
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.9 }}
                 >
-                  <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full py-6 text-lg">
+                  <AnimatedButton 
+                    variant="primary" 
+                    className="w-full text-black py-6 text-lg"
+                  >
                     Submit Application
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
+                  </AnimatedButton>
                 </motion.div>
               </form>
             </div>

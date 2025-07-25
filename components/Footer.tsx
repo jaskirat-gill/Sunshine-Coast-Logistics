@@ -2,27 +2,17 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUp, Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, PrinterIcon } from "lucide-react"
+import { MASTER_DATA, NAV_ITEMS } from "@/lib/data"
 
 export default function Footer() {
-    const navItems = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        { name: "Services", href: "/services" },
-        { name: "Equipment", href: "/equipment" },
-        { name: "Contact", href: "/contact" },
-    ]
-
-    const socialLinks = [
-        { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-        { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-        { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    ]
 
     const contactInfo = [
-        { icon: Phone, info: "+1 (555) 123-4567", href: "tel:+15551234567" },
-        { icon: Mail, info: "info@sunshinecoastlogistics.com", href: "mailto:info@sunshinecoastlogistics.com" },
-        { icon: MapPin, info: "123 Logistics Way, Sunshine Coast, BC", href: "https://maps.google.com" },
+        { icon: Phone, info: MASTER_DATA.contact.cell, href: `tel:${MASTER_DATA.contact.cell}` },
+        { icon: Phone, info: MASTER_DATA.contact.phone, href: `tel:${MASTER_DATA.contact.phone}` },
+        { icon: PrinterIcon, info: MASTER_DATA.contact.fax, href: `tel:${MASTER_DATA.contact.fax}` },
+        { icon: Mail, info: MASTER_DATA.contact.email, href: `mailto:${MASTER_DATA.contact.email}` },
+        { icon: MapPin, info: MASTER_DATA.contact.address, href: MASTER_DATA.contact.map },
     ]
 
     return (
@@ -49,11 +39,11 @@ export default function Footer() {
                             </span>
                         </div>
                         <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-6">
-                            Reliable, fast, and secure logistics solutions across North America. We connect businesses with efficient transportation services.
+                            {MASTER_DATA.footer.headline}
                         </p>
                         {/* Social Links */}
                         <div className="flex space-x-4">
-                            {socialLinks.map(({ icon: Icon, href, label }) => (
+                            {MASTER_DATA.socials.map(({ icon: Icon, href, label }) => (
                                 <a
                                     key={label}
                                     href={href}
@@ -72,7 +62,7 @@ export default function Footer() {
                     <div className="col-span-1">
                         <h3 className="text-zinc-900 dark:text-white font-bold mb-4">Quick Links</h3>
                         <nav className="flex flex-col space-y-2" aria-label="Footer navigation">
-                            {navItems.map((item) => (
+                            {NAV_ITEMS.map((item) => (
                                 <Link
                                     key={item.name}
                                     href={item.href}
@@ -102,18 +92,6 @@ export default function Footer() {
                             ))}
                         </div>
                     </div>
-
-                    {/* Newsletter or CTA
-                    <div className="col-span-1">
-                        <h3 className="text-zinc-900 dark:text-white font-bold mb-4">Get a Quote</h3>
-                        <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-                            Ready to streamline your logistics? Contact us today for a customized shipping solution.
-                        </p>
-                        <Link href="/contact" className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black rounded-full text-sm font-medium hover:from-yellow-500 hover:to-yellow-700 transition-colors">
-                            Request a Quote
-                            <ArrowUp className="ml-2 h-4 w-4 rotate-45" />
-                        </Link>
-                    </div> */}
                 </div>
             </div>
 
@@ -121,7 +99,7 @@ export default function Footer() {
             <div className="border-t border-zinc-200 dark:border-zinc-800">
                 <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
                     <p className="text-zinc-500 dark:text-zinc-400 text-xs">
-                        © 2025 Sunshine Coast Logistics. All rights reserved.
+                        © {new Date().getFullYear()} Sunshine Coast Logistics. All rights reserved.
                     </p>
                     <p className="text-zinc-500 dark:text-zinc-400 text-xs">
                         Developed By{" "}

@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Facebook, Instagram, Linkedin, Phone, Mail } from "lucide-react"
+import { Menu, X, Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import Image from "next/image"
 import Link from "next/link"
+import { MASTER_DATA, NAV_ITEMS } from "@/lib/data"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,20 +25,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [scrolled])
 
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Equipment", href: "/equipment" },
-    { name: "Join Us", href: "/join" },
-  ]
-
-  const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  ]
-
   return (
     <>
       {/* Top contact bar - moved outside the motion.header */}
@@ -46,17 +33,17 @@ export default function Header() {
           <div className="flex items-center space-x-6">
             <div className="flex items-center text-zinc-700 dark:text-zinc-300">
               <Phone className="w-4 h-4 mr-2 text-yellow-500" />
-              <span className="hidden sm:inline">604-417-3505</span>
-              <a href="tel:+16044173505" className="sm:hidden">Call</a>
+              <span className="hidden sm:inline">{MASTER_DATA.contact.cell}</span>
+              <a href={`tel:${MASTER_DATA.contact.cell}`} className="sm:hidden">Call</a>
             </div>
             <div className="flex items-center text-zinc-700 dark:text-zinc-300">
               <Mail className="w-4 h-4 mr-2 text-yellow-500" />
-              <span className="hidden sm:inline">altaf@sunshinecoastlogistics.com</span>
-              <a href="mailto:altaf@sunshinecoastlogistics.com" className="sm:hidden">Email</a>
+              <span className="hidden sm:inline">{MASTER_DATA.contact.email}</span>
+              <a href={`mailto:${MASTER_DATA.contact.email}`} className="sm:hidden">Email</a>
             </div>
           </div>
           <div className="flex space-x-4">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
+            {MASTER_DATA.socials.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
@@ -84,7 +71,7 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Logo & Tagline */}
+          {/* Logo */}
           <motion.div 
             whileHover={{ scale: 1.05 }} 
             className="flex items-center space-x-3"
@@ -105,7 +92,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1" aria-label="Main navigation">
-            {navItems.map((item, index) => (
+            {NAV_ITEMS.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -20 }}
@@ -190,7 +177,7 @@ export default function Header() {
                 <div className="flex-1 overflow-y-auto py-6 px-6">
                   <AnimatePresence>
                     <nav className="flex flex-col space-y-1" aria-label="Mobile navigation">
-                      {navItems.map((item, index) => (
+                      {NAV_ITEMS.map((item, index) => (
                         <motion.div
                           key={item.name}
                           initial={{ opacity: 0, x: 20 }}
@@ -214,18 +201,18 @@ export default function Header() {
                   <div className="mt-8 space-y-4 px-4">
                     <div className="flex items-center text-zinc-700 dark:text-zinc-300">
                       <Phone className="w-5 h-5 mr-3 text-yellow-500" />
-                      <span>604-417-3505</span>
+                      <span>{MASTER_DATA.contact.cell}</span>
                     </div>
                     <div className="flex items-center text-zinc-700 dark:text-zinc-300">
                       <Mail className="w-5 h-5 mr-3 text-yellow-500" />
-                      <span>altaf@sunshinecoastlogistics.com</span>
+                      <span>{MASTER_DATA.contact.email}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Social Links (Mobile) */}
                 <div className="flex justify-center space-x-6 mb-4">
-                  {socialLinks.map(({ icon: Icon, href, label }) => (
+                  {MASTER_DATA.socials.map(({ icon: Icon, href, label }) => (
                     <a
                       key={label}
                       href={href}
