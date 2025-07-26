@@ -6,75 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { MASTER_DATA } from "@/lib/data"
-
-// Counter component that animates from 0 to target value
-function Counter({ value, duration = 2500, className = "" }: { value: string, duration?: number, className?: string }) {
-  const [count, setCount] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const counterRef = useRef<HTMLDivElement>(null)
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          // Extract numeric value and handle commas properly
-          const numericValue = parseInt(value.replace(/[^0-9]/g, ''))
-          
-          let startTime: number
-          let animationId: number
-          
-          const animate = (timestamp: number) => {
-            if (!startTime) startTime = timestamp
-            const elapsed = timestamp - startTime
-            const progress = Math.min(elapsed / duration, 1)
-            
-            // Easing function for smooth animation
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-            const currentCount = Math.floor(numericValue * easeOutQuart)
-            
-            setCount(currentCount)
-            
-            if (progress < 1) {
-              animationId = requestAnimationFrame(animate)
-            } else {
-              setCount(numericValue)
-              setHasAnimated(true)
-            }
-          }
-          
-          animationId = requestAnimationFrame(animate)
-        }
-      },
-      { threshold: 0.1 }
-    )
-    
-    if (counterRef.current) {
-      observer.observe(counterRef.current)
-    }
-    
-    return () => {
-      if (counterRef.current) {
-        observer.unobserve(counterRef.current)
-      }
-    }
-  }, [value, duration, hasAnimated])
-  
-  // Format the count with commas and handle suffix properly
-  const formatCount = (count: number) => {
-    return count.toLocaleString()
-  }
-  
-  const suffix = value.replace(/[0-9,]/g, '') // Remove numbers AND commas for suffix
-  
-  return (
-    <div ref={counterRef} className={className}>
-      <span className="counter" data-duration={duration} data-count-to={parseInt(value.replace(/[^0-9]/g, ''))}>
-        {formatCount(count)}
-      </span>
-      {suffix && <span className="counter-symbol">{suffix}</span>}
-    </div>
-  )
-}
+import { Counter } from "@/components/ui/counter"
 
 export default function AnimatedFeature() {
   const containerRef = useRef<HTMLDivElement>(null)
