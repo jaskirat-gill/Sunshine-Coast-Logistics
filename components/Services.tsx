@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { MASTER_DATA } from "@/lib/data"
+import { useDesignSystem } from "@/lib/hooks/useDesignSystem"
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
