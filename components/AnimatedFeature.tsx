@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { MASTER_DATA } from "@/lib/data"
 import { Counter } from "@/components/ui/counter"
+import { Background } from "./ui/background"
 
 export default function AnimatedFeature() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -69,25 +70,7 @@ export default function AnimatedFeature() {
 
   return (
     <section ref={containerRef} className="relative py-24 overflow-hidden bg-zinc-100 dark:bg-black">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-zinc-100 dark:from-zinc-900 dark:to-black -z-10" />
-      
-      {/* Animated grid pattern */}
-      <motion.div 
-        className="absolute inset-0 opacity-10 dark:opacity-20 z-0"
-        style={{ 
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
-        }}
-        initial={{ backgroundPosition: "0px 0px" }}
-        animate={{
-          backgroundPosition: ["0px 0px", "60px 60px"],
-        }}
-        transition={{
-          duration: 20,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-      />
+      <Background />
       
       <div className="container mx-auto px-4">
         <motion.div
