@@ -20,7 +20,7 @@ export default function Footer() {
         <footer className="relative bg-zinc-100 dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 overflow-hidden mt-auto">
             <Background />
             {/* Main footer content */}
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 py-12 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
                     {/* Logo & Description */}
                     <div className="col-span-1">

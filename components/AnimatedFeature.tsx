@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { AnimatedButton } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { MASTER_DATA } from "@/lib/data"
 import { Counter } from "@/components/ui/counter"
@@ -140,10 +140,10 @@ export default function AnimatedFeature() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2, duration: 1.2 }}
                       >
-                        <Button className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full">
+                        <AnimatedButton className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full">
                           Learn More
                           <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
+                        </AnimatedButton>
                       </motion.div>
                     </motion.div>
                   </motion.div>

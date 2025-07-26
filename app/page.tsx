@@ -27,7 +27,7 @@ const About = dynamic(() => import("@/components/About"), {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-900 dark:to-black relative">
+    <div className="bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-900 dark:to-black relative">
       <Hero />
       <Suspense fallback={<div className="h-[600px]" />}>
         <Map />

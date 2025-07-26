@@ -15,7 +15,7 @@ export default function Equipment() {
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
   
   return (
-    <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
+    <main ref={containerRef} className="pt-32 pb-20 relative overflow-hidden">
       <Background />
       
       {/* Hero section */}
@@ -91,7 +91,7 @@ export default function Equipment() {
                         </motion.div>
                         
                         <motion.h2 
-                          className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${equipment.color} bg-clip-text text-transparent`}
+                          className={`text-3xl md:text-4xl pb-2 font-bold mb-4 bg-gradient-to-r ${equipment.color} bg-clip-text text-transparent`}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.4, duration: 0.6 }}

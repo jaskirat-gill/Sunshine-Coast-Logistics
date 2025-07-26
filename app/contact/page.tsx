@@ -24,7 +24,7 @@ export default function Contact() {
   const y = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [100, 0, 0, 100])
   
   return (
-    <section ref={containerRef} className="py-24 relative overflow-hidden min-h-screen">
+    <section ref={containerRef} className="py-24 relative overflow-hidden">
       {/* Light background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black -z-10" />
       

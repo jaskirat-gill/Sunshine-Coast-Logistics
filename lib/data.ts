@@ -190,7 +190,7 @@ export const MASTER_DATA = {
       "Ready to streamline your logistics operations? Contact us for a personalized consultation.",
   },
   about_page: {
-    tagline: "Delivering logistics excellenve since 2015",
+    tagline: "Delivering logistics excellence since 2015",
     tabs: [
       { title: "Our Story", icon: Award },
       { title: "Our Mission", icon: TrendingUp },

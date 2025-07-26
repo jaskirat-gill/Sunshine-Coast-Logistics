@@ -25,7 +25,7 @@ export default function About() {
   const [activeTab, setActiveTab] = useState(0)
       
   return (
-    <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
+    <main ref={containerRef} className="pt-32 pb-20 relative overflow-hidden">
       <Background />
       {/* Hero section */}
       <section className="relative">
@@ -115,7 +115,7 @@ export default function About() {
                         {content.stats.map((stat, i) => (
                           <div key={i} className="text-center">
                             <motion.div
-                              className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-1"
+                              className="text-3xl pb-2 md:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-1"
                               initial={{ scale: 0.5, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
                               transition={{ duration: 0.5, delay: 0.6 + (i * 0.1) }}

@@ -32,7 +32,7 @@ export default function Services() {
   }
 
   return (
-    <main ref={containerRef} className="min-h-screen pt-32 pb-20 relative overflow-hidden">
+    <main ref={containerRef} className="pt-32 pb-20 relative overflow-hidden">
       <Background />
       
       {/* Hero section */}
