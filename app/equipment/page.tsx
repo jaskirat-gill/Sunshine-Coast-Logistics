@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
 import { ChevronRight, ChevronLeft, ArrowRight, Box } from "lucide-react"
 import Link from "next/link"
@@ -154,11 +154,12 @@ export default function Equipment() {
                         animate={{ clipPath: "inset(0 0% 0 0)" }}
                         transition={{ delay: 0.2, duration: 1, ease: [0.25, 1, 0.5, 1] }}
                       >
-                        <Image
-                          src={equipment.image}
+                        <WordPressImage
+                          slug={equipment.image}
                           alt={equipment.name}
-                          fill
-                          className="object-cover"
+                          width={1200}
+                          height={800}
+                          className="object-cover w-full h-full"
                           priority
                         />
                         <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent" />

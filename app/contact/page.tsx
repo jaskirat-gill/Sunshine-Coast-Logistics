@@ -6,7 +6,7 @@ import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Send } from "lucide-react"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { MASTER_DATA } from "@/lib/data"
 
 export default function Contact() {
@@ -102,13 +102,13 @@ export default function Contact() {
               
               {/* Map or image */}
               <div className="mt-8 relative h-48 rounded-xl overflow-hidden">
-                <Image
-                  src="/map_background.jpg"
+                <WordPressImage
+                  slug="map-background"
                   alt="Office location map"
-                  fill
-                  className="object-cover"
+                  width={800}
+                  height={400}
+                  className="object-cover w-full h-full"
                 />
-              
               </div>
             </motion.div>
             

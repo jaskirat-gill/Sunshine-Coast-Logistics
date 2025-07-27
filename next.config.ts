@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+// Get WordPress hostname from environment variable, fallback to development URL
+const WORDPRESS_HOST = process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/^https?:\/\//, '') ?? '44.237.126.68';
+
 const nextConfig: NextConfig = {
   /* Performance optimizations */
   images: {
@@ -8,6 +11,21 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: WORDPRESS_HOST,
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+      // Fallback for development/staging (remove in production if not needed)
+      {
+        protocol: 'http',
+        hostname: WORDPRESS_HOST,
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+    ],
   },
   
   // Enable React strict mode for better development experience

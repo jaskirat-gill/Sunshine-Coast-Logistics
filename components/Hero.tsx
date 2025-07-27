@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform  } from "framer-motion"
 import { AnimatedButton } from "@/components/ui/button"
 import { MASTER_DATA } from "@/lib/data"
 
+const HERO_VIDEO_PATH = "/wp-content/uploads/2025/07/Sunshine-Coast-video_final.mp4"
+
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false)
   
@@ -28,6 +30,8 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.98])
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 50])
 
+  const videoUrl = `${process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'http://44.237.126.68'}${HERO_VIDEO_PATH}`
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28">
       {/* Background Video with Lighter Overlay */}
@@ -41,7 +45,7 @@ export default function Hero() {
           className="w-full h-full object-cover"
           preload="auto"
         >
-          <source src="/hero_video.mp4" type="video/mp4" />
+          <source src={videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>

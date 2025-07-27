@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
 import { ArrowRight, Check, ChevronDown } from "lucide-react"
 import Link from "next/link"
@@ -66,11 +66,12 @@ export default function JoinUs() {
               transition={{ duration: 0.8 }}
               className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden"
             >
-              <Image
-                src="/home_about_image.jpg" // Replace with a team/workplace image
+              <WordPressImage
+                slug="home-about"
                 alt="Our team at work"
-                fill
-                className="object-cover"
+                width={1200}
+                height={800}
+                className="object-cover w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-black/50 to-transparent" />
               

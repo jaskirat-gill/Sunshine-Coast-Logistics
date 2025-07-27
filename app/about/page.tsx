@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -154,11 +154,12 @@ export default function About() {
                         animate={{ clipPath: "inset(0 0 0% 0)" }}
                         transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
                       >
-                        <Image
-                          src={content.image}
+                        <WordPressImage
+                          slug={content.image}
                           alt={content.title}
-                          fill
-                          className="object-cover"
+                          width={1200}
+                          height={800}
+                          className="object-cover w-full h-full"
                           priority
                         />
                         <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent" />

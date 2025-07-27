@@ -1,8 +1,8 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { Mail, Phone, MapPin, PrinterIcon } from "lucide-react"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { MASTER_DATA, NAV_ITEMS } from "@/lib/data"
 import { Background } from "./ui/background"
 
@@ -25,12 +25,13 @@ export default function Footer() {
                     {/* Logo & Description */}
                     <div className="col-span-1">
                         <div className="flex items-center space-x-3 mb-4">
-                            <Image
-                                src="/logo.webp"
+                            <WordPressImage
+                                slug="logo"
                                 alt="Logo"
                                 width={40}
                                 height={40}
                                 className="rounded-lg"
+                                priority
                             />
                             <span className="text-lg font-bold bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent">
                                 Sunshine Coast Logistics

@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { Award, ArrowRight } from "lucide-react"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { Button } from "@/components/ui/button"
 import { MASTER_DATA } from "@/lib/data"
 
@@ -114,13 +114,13 @@ export default function About() {
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
                 className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl"
               >
-                <Image
-                  src="/home_about_image.jpg"
+                <WordPressImage
+                  slug="home-about"
                   alt="Modern logistics operations"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  width={800}
+                  height={600}
                   className="object-cover w-full h-full"
-                  style={{ objectPosition: "center" }}
+                  objectFit="cover"
                   priority
                 />
                 

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion"
 import { Truck } from "lucide-react"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { MASTER_DATA } from "@/lib/data"
 import { Background } from "./ui/background"
 
@@ -75,15 +76,17 @@ export default function Map() {
           className="relative bg-white dark:bg-zinc-800/50 backdrop-blur-md rounded-3xl p-8 overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-700/50 transform-gpu perspective-1000"
         >
           {/* Background with map */}
-          <div
-            className="absolute inset-0 w-full h-full"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.8) 100%), url('/map_background.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'left center',
-              zIndex: 0
-            }}
-          ></div>
+          <div className="absolute inset-0 w-full h-full">
+            <WordPressImage
+              slug="map-background"
+              alt="World map background"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover opacity-90"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-white/80 dark:from-black/80 dark:via-black/70 dark:to-black" />
+          </div>
           
           {/* Dark mode overlay */}
           <div className="absolute inset-0 w-full h-full dark:bg-gradient-to-r dark:from-black/80 dark:via-black/70 dark:to-black z-0"></div>

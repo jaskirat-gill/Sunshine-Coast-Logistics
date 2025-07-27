@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import Link from "next/link"
 import { MASTER_DATA, NAV_ITEMS } from "@/lib/data"
 
@@ -78,11 +78,11 @@ export default function Header() {
           >
             <Link href="/">
               <div className="relative h-10 w-32">
-                <Image
-                  src="/logo.webp"
+                <WordPressImage
+                  slug="logo"
                   alt="Logo"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 128px"
+                  width={128}
+                  height={40}
                   className="object-contain"
                   priority
                 />
@@ -151,12 +151,13 @@ export default function Header() {
                 {/* Header with logo and title */}
                 <div className="flex justify-between items-center p-6 border-b border-zinc-200 dark:border-zinc-800">
                   <div className="flex items-center space-x-2">
-                    <Image
-                      src="/logo.webp"
+                    <WordPressImage
+                      slug="logo"
                       alt="Logo"
                       width={36}
                       height={36}
                       className="rounded-lg"
+                      priority
                     />
                     <span className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                       Menu

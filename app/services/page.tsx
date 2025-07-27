@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
 import { ArrowRight, ChevronDown } from "lucide-react"
 import Link from "next/link"
@@ -135,11 +135,12 @@ export default function Services() {
                           
                           {/* Service image */}
                           <div className="relative h-64 md:h-auto rounded-xl overflow-hidden">
-                            <Image
-                              src={service.image}
+                            <WordPressImage
+                              slug={service.image}
                               alt={service.title}
-                              fill
-                              className="object-cover"
+                              width={800}
+                              height={600}
+                              className="object-cover w-full h-full"
                             />
                             <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent" />
                           </div>
@@ -218,11 +219,12 @@ export default function Services() {
               {/* Map visualization */}
               <div className="relative h-[400px] lg:h-auto">
                 <div className="absolute inset-0">
-                  <Image
-                    src="/map_background.jpg"
+                  <WordPressImage
+                    slug="map-background"
                     alt="Service coverage map"
-                    fill
-                    className="object-cover"
+                    width={1920}
+                    height={1080}
+                    className="object-cover w-full h-full"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-transparent dark:from-zinc-900/80 lg:hidden" />
                 </div>

@@ -64,21 +64,21 @@ export const MASTER_DATA = {
         title: "Nationwide Coverage",
         description:
           "Our extensive network spans across North America, ensuring your shipments reach their destination on time, every time.",
-        image: "/home_services_1.jpg",
+        image: "home-services-1",
         color: "from-yellow-400 to-yellow-600",
       },
       {
         title: "Advanced Fleet Technology",
         description:
           "State-of-the-art tracking systems and modern vehicles provide real-time updates and maximum efficiency.",
-        image: "/home_services_2.jpg",
+        image: "home-services-2",
         color: "from-yellow-500 to-yellow-700",
       },
       {
         title: "Expert Logistics Team",
         description:
           "Our experienced professionals design customized shipping solutions tailored to your specific business needs.",
-        image: "/home_services_3.jpg",
+        image: "home-services-3",
         color: "from-yellow-300 to-yellow-500",
       },
     ],
@@ -201,7 +201,7 @@ export const MASTER_DATA = {
         title: "Our Story",
         content:
           "Since 2015, Sunshine Coast Logistics has been a family-owned business dedicated to providing flexible, comprehensive freight solutions. We've worked to cultivate a great company culture with a modern fleet and best-in-class driving force. Our company was built on the premise that each and every customer deserves a carrier they can trust, a carrier that operates safely, delivers on time, and communicates proactively.",
-        image: "/home_about_image.jpg",
+        image: "home-about",
         stats: [
           { value: "2015", label: "Founded" },
           { value: "15+", label: "Years Experience" },
@@ -212,7 +212,7 @@ export const MASTER_DATA = {
         title: "Our Mission",
         content:
           "Our mission is to provide exceptional transportation and logistics services that exceed our customers' expectations. We strive to be the most reliable, efficient, and customer-focused logistics partner in the industry. Through continuous innovation, investment in technology, and development of our team, we aim to set new standards in the logistics industry while maintaining our commitment to safety, sustainability, and community engagement.",
-        image: "/home_services_2.jpg",
+        image: "home-services-2",
         stats: [
           { value: "24/7", label: "Support" },
           { value: "100%", label: "Commitment" },
@@ -223,7 +223,7 @@ export const MASTER_DATA = {
         title: "Our Values",
         content:
           "At Sunshine Coast Logistics, our core values guide everything we do. We believe in integrity in all our dealings, safety as our top priority, excellence in service delivery, respect for our team members and clients, innovation to drive continuous improvement, and sustainability in our operations. These values form the foundation of our company culture and inform our decision-making at every level of the organization.",
-        image: "/home_services_3.jpg",
+        image: "home-services-3",
         stats: [
           { value: "Safety", label: "First Priority" },
           { value: "Integrity", label: "In All Dealings" },
@@ -275,7 +275,7 @@ export const MASTER_DATA = {
         icon: Truck,
         description:
           "We provide reliable pick-ups and deliveries, competitive rates, and courteous customer service for Full Truck Load freight. Whether Flatbed, Dry Van, one skid or half a trailer, Sunshine Coast Logistics has you covered from coast to coast.",
-        image: "/home_services_1.jpg",
+        image: "home-services-1",
         features: [
           "Dedicated capacity for your shipments",
           "Direct point-to-point transportation",
@@ -289,7 +289,7 @@ export const MASTER_DATA = {
         icon: Globe,
         description:
           "Not every shipment requires a full trailer. Our team offers reliable pick-ups and deliveries for Less Than Truck Load freight, ensuring flexibility and efficiency for smaller shipments.",
-        image: "/home_services_2.jpg",
+        image: "home-services-2",
         features: [
           "Cost-effective solution for smaller shipments",
           "Flexible scheduling options",
@@ -303,7 +303,7 @@ export const MASTER_DATA = {
         icon: Clock,
         description:
           "When time is critical, our expedited shipping services ensure your freight arrives at its destination as quickly as possible, with priority handling and direct routes.",
-        image: "/home_services_3.jpg",
+        image: "home-services-3",
         features: [
           "Time-critical delivery solutions",
           "Priority handling and routing",
@@ -317,7 +317,7 @@ export const MASTER_DATA = {
         icon: Shield,
         description:
           "Our specialized logistics services cater to unique transportation needs, including oversized loads, hazardous materials, and high-value shipments requiring extra security measures.",
-        image: "/home_services_4.jpg",
+        image: "home-services-4",
         features: [
           "Custom solutions for unique shipping requirements",
           "Experienced handling of oversized and overweight freight",
@@ -369,7 +369,7 @@ export const MASTER_DATA = {
           "Roll-up or swing doors",
           "Ideal for non-perishable goods",
         ],
-        image: "/home_services_1.jpg", // Replace with actual image
+        image: "home-services-1",
         color: "from-yellow-400 to-yellow-600",
       },
       {
@@ -384,7 +384,7 @@ export const MASTER_DATA = {
           "Backup power systems",
           "Suitable for perishable goods",
         ],
-        image: "/home_services_2.jpg", // Replace with actual image
+        image: "home-services-2",
         color: "from-yellow-500 to-yellow-700",
       },
       {
@@ -399,7 +399,7 @@ export const MASTER_DATA = {
           "Specialized strapping systems",
           "Perfect for oversized loads",
         ],
-        image: "/home_services_3.jpg", // Replace with actual image
+        image: "home-services-3",
         color: "from-yellow-300 to-yellow-500",
       },
     ],

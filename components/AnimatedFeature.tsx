@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { MASTER_DATA } from "@/lib/data"
@@ -159,11 +159,12 @@ export default function AnimatedFeature() {
                       animate={{ clipPath: "inset(0% 0 0% 0)" }}
                       transition={{ delay: 0.4, duration: 2.0, ease: [0.25, 1, 0.5, 1] }}
                     >
-                      <Image
-                        src={feature.image}
+                      <WordPressImage
+                        slug={feature.image}
                         alt={feature.title}
-                        fill
-                        className="object-cover"
+                        width={1200}
+                        height={800}
+                        className="object-cover w-full h-full"
                         priority
                       />
                       <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent" />
