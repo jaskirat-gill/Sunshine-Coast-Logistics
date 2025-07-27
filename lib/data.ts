@@ -456,35 +456,7 @@ export const MASTER_DATA = {
           "Ability to pass DOT physical and drug screening",
           "Strong communication skills",
         ],
-      },
-      {
-        title: "Logistics Coordinator",
-        location: "Sunshine Coast, BC",
-        type: "Full-time",
-        description:
-          "Coordinate and optimize freight movement, working closely with drivers, customers, and operations team to ensure efficient and timely deliveries.",
-        requirements: [
-          "Bachelor's degree in logistics, supply chain, or related field (or equivalent experience)",
-          "2+ years experience in logistics coordination",
-          "Proficiency in transportation management systems",
-          "Strong problem-solving and organizational skills",
-          "Excellent communication abilities",
-        ],
-      },
-      {
-        title: "Fleet Maintenance Technician",
-        location: "Sunshine Coast, BC",
-        type: "Full-time",
-        description:
-          "Maintain and repair our fleet of trucks and trailers, ensuring they meet all safety standards and remain in optimal operating condition.",
-        requirements: [
-          "Certified diesel mechanic with 3+ years experience",
-          "Experience with preventative maintenance programs",
-          "Knowledge of DOT regulations",
-          "Ability to troubleshoot and repair various vehicle systems",
-          "Valid driver's license",
-        ],
-      },
+      }
     ],
   },
   footer: {

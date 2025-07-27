@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
+import ReCAPTCHA from "react-google-recaptcha"
 import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -12,6 +13,7 @@ import { MASTER_DATA } from "@/lib/data"
 export default function Contact() {
   const containerRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
   const isFormInView = useInView(formRef, { once: false, margin: "-100px" })
   
@@ -26,6 +28,7 @@ export default function Contact() {
   
   // Form submission state
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
     message: string;
@@ -47,6 +50,14 @@ export default function Contact() {
     }))
     
     // Clear status when user starts typing again
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: "" })
+    }
+  }
+  
+  // Handle reCAPTCHA change
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token)
     if (submitStatus.type) {
       setSubmitStatus({ type: null, message: "" })
     }
@@ -75,6 +86,15 @@ export default function Contact() {
       return
     }
     
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA verification.'
+      })
+      return
+    }
+    
     setIsSubmitting(true)
     setSubmitStatus({ type: null, message: "" })
     
@@ -89,7 +109,8 @@ export default function Contact() {
           company: formData.company.trim() || undefined,
           email: formData.email.trim(),
           phone: formData.phone.trim() || undefined,
-          message: formData.message.trim()
+          message: formData.message.trim(),
+          recaptchaToken
         })
       })
       
@@ -108,11 +129,17 @@ export default function Contact() {
           phone: "",
           message: ""
         })
+        // Reset reCAPTCHA
+        recaptchaRef.current?.reset()
+        setRecaptchaToken(null)
       } else {
         setSubmitStatus({
           type: 'error',
           message: result.message
         })
+        // Reset reCAPTCHA on error
+        recaptchaRef.current?.reset()
+        setRecaptchaToken(null)
       }
     } catch (error) {
       console.error('Form submission error:', error)
@@ -120,6 +147,9 @@ export default function Contact() {
         type: 'error',
         message: 'An error occurred while submitting the form. Please try again or contact us directly.'
       })
+      // Reset reCAPTCHA on error
+      recaptchaRef.current?.reset()
+      setRecaptchaToken(null)
     } finally {
       setIsSubmitting(false)
     }
@@ -296,6 +326,17 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
                     className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400 resize-none"
+                  />
+                </div>
+                
+                {/* reCAPTCHA */}
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''}
+                    onChange={handleRecaptchaChange}
+                    theme="light"
+                    size="normal"
                   />
                 </div>
                 

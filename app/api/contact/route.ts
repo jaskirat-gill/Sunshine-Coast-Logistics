@@ -7,15 +7,36 @@ const createTransporter = () => {
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD, // Use App Password, not regular password
+      pass: process.env.GMAIL_APP_PASSWORD,
     },
   });
 };
 
+// Verify reCAPTCHA token
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+    });
+
+    const data = await response.json();
+    console.log('reCAPTCHA verification response:', data);
+    
+    return data.success === true;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, company, email, phone, message } = body;
+    const { name, company, email, phone, message, recaptchaToken } = body;
 
     // Validate required fields
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
@@ -30,6 +51,24 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { success: false, message: 'Please enter a valid email address.' },
+        { status: 400 }
+      );
+    }
+
+    // Validate reCAPTCHA token
+    if (!recaptchaToken) {
+      return NextResponse.json(
+        { success: false, message: 'reCAPTCHA verification is required.' },
+        { status: 400 }
+      );
+    }
+
+    // Verify reCAPTCHA token
+    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
+    
+    if (!isRecaptchaValid) {
+      return NextResponse.json(
+        { success: false, message: 'reCAPTCHA verification failed. Please try again.' },
         { status: 400 }
       );
     }

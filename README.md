@@ -10,6 +10,10 @@ GMAIL_USER=your-email@gmail.com
 GMAIL_APP_PASSWORD=your-gmail-app-password
 CONTACT_TO_EMAIL=email@email.com
 
+# reCAPTCHA Configuration
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
+
 # WordPress Configuration (for content)
 NEXT_PUBLIC_WORDPRESS_URL=https://demoadmin.jaskiratgill.ca
 ```
@@ -18,6 +22,13 @@ NEXT_PUBLIC_WORDPRESS_URL=https://demoadmin.jaskiratgill.ca
 1. Enable 2-factor authentication on your Gmail account
 2. Generate an "App Password" (not your regular password)
 3. Use that App Password in the `GMAIL_APP_PASSWORD` variable
+
+**For reCAPTCHA:**
+1. Go to [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin)
+2. Create a new site with reCAPTCHA v2 "I'm not a robot" Checkbox
+3. Add your domain (localhost for development)
+4. Copy the Site Key to `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
+5. Copy the Secret Key to `RECAPTCHA_SECRET_KEY`
 
 Then, run the development server:
 
@@ -39,7 +50,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Contact Form
 
-The contact form on the `/contact` page uses Nodemailer with Gmail SMTP to send emails. The form submits to `/api/contact` which handles email sending with proper validation and error handling.
+The contact form on the `/contact` page uses Nodemailer with Gmail SMTP to send emails and includes reCAPTCHA v2 protection. The form submits to `/api/contact` which handles email sending with proper validation and spam protection.
 
 ## Learn More
 
