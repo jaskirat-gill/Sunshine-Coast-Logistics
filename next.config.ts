@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       },
       // Fallback for development/staging (remove in production if not needed)
       {
-        protocol: 'http',
+        protocol: 'https',
         hostname: WORDPRESS_HOST,
         port: '',
         pathname: '/wp-content/uploads/**',

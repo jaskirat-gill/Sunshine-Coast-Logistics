@@ -1,7 +1,5 @@
 import { WordPressAssetsResponse } from '../types/wordpress'
 
-const WORDPRESS_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'http://44.237.126.68' + '/graphql'
-
 export async function fetchWordPressAssets() {
   const query = `
     query GetAllAssets {
@@ -23,7 +21,8 @@ export async function fetchWordPressAssets() {
   `
 
   try {
-    const response = await fetch(WORDPRESS_API_URL, {
+    // Use the local Next.js API route as a proxy to avoid CORS issues
+    const response = await fetch('/api/wordpress', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,4 +41,4 @@ export async function fetchWordPressAssets() {
     console.error('Error fetching WordPress assets:', error)
     return null
   }
-} 
+}

@@ -30,7 +30,7 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.98])
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 50])
 
-  const videoUrl = `${process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'http://44.237.126.68'}${HERO_VIDEO_PATH}`
+  const videoUrl = `${process.env.NEXT_PUBLIC_WORDPRESS_URL ?? 'https://44.237.126.68'}${HERO_VIDEO_PATH}`
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28">
