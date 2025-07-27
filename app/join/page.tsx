@@ -2,9 +2,10 @@
 
 import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion"
+import ReCAPTCHA from "react-google-recaptcha"
 import { WordPressImage } from "@/components/ui/wordpress-image"
 import { AnimatedButton } from "@/components/ui/button"
-import { ArrowRight, Check, ChevronDown } from "lucide-react"
+import { ArrowRight, Check, ChevronDown, CheckCircle, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -13,8 +14,30 @@ import { Background } from "@/components/ui/background"
 
 export default function JoinUs() {
   const containerRef = useRef<HTMLElement>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
   const [activePosition, setActivePosition] = useState<number | null>(null)
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    coverLetter: ""
+  })
+  
+  // File state
+  const [resumeFile, setResumeFile] = useState<File | null>(null)
+  const [fileName, setFileName] = useState("")
+  
+  // Form submission state
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: "" })
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -29,6 +52,162 @@ export default function JoinUs() {
       setActivePosition(null)
     } else {
       setActivePosition(index)
+    }
+  }
+
+  // Handle form input changes
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+    
+    // Clear status when user starts typing again
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: "" })
+    }
+  }
+
+  // Handle file upload
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      // Validate file type
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+      if (!allowedTypes.includes(file.type)) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Please upload a PDF, DOC, or DOCX file.'
+        })
+        return
+      }
+      
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'File size must be less than 5MB.'
+        })
+        return
+      }
+      
+      setResumeFile(file)
+      setFileName(file.name)
+      setSubmitStatus({ type: null, message: "" })
+    }
+  }
+
+  // Handle reCAPTCHA change
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token)
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: "" })
+    }
+  }
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Validate required fields
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !resumeFile) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please fill in all required fields and upload your resume.'
+      })
+      return
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid email address.'
+      })
+      return
+    }
+    
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA verification.'
+      })
+      return
+    }
+    
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: "" })
+    
+    try {
+      // Convert file to base64
+      const reader = new FileReader()
+      reader.onload = async () => {
+        const base64 = (reader.result as string).split(',')[1]
+        
+        const response = await fetch('/api/job-application', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim(),
+            coverLetter: formData.coverLetter.trim() || undefined,
+            resumeBase64: base64,
+            resumeFileName: fileName,
+            recaptchaToken
+          })
+        })
+        
+        const result = await response.json()
+        
+        if (result.success) {
+          setSubmitStatus({
+            type: 'success',
+            message: result.message
+          })
+          // Reset form on success
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            coverLetter: ""
+          })
+          setResumeFile(null)
+          setFileName("")
+          // Reset reCAPTCHA
+          recaptchaRef.current?.reset()
+          setRecaptchaToken(null)
+          // Reset file input
+          if (fileInputRef.current) {
+            fileInputRef.current.value = ""
+          }
+        } else {
+          setSubmitStatus({
+            type: 'error',
+            message: result.message
+          })
+          // Reset reCAPTCHA on error
+          recaptchaRef.current?.reset()
+          setRecaptchaToken(null)
+        }
+      }
+      
+      reader.readAsDataURL(resumeFile)
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus({
+        type: 'error',
+        message: 'An error occurred while submitting your application. Please try again or contact us directly.'
+      })
+      // Reset reCAPTCHA on error
+      recaptchaRef.current?.reset()
+      setRecaptchaToken(null)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -244,7 +423,7 @@ export default function JoinUs() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
-                className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
+                className="text-3xl pb-2 md:text-4xl font-bold mb-6 bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent"
               >
                 Apply Now
               </motion.h2>
@@ -258,7 +437,33 @@ export default function JoinUs() {
                 Fill out the form below to apply for a position with our team
               </motion.p>
               
-              <form className="space-y-6">
+              {/* Status message */}
+              {submitStatus.type && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
+                      : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                  }`}
+                >
+                  {submitStatus.type === 'success' ? (
+                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                  )}
+                  <span className={`text-sm font-medium ${
+                    submitStatus.type === 'success' 
+                      ? 'text-green-800 dark:text-green-200' 
+                      : 'text-red-800 dark:text-red-200'
+                  }`}>
+                    {submitStatus.message}
+                  </span>
+                </motion.div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -272,6 +477,8 @@ export default function JoinUs() {
                     <Input 
                       required
                       placeholder="Your full name"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
                       className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400"
                     />
                   </motion.div>
@@ -289,6 +496,8 @@ export default function JoinUs() {
                       type="email"
                       required
                       placeholder="your.email@example.com"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
                       className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400"
                     />
                   </motion.div>
@@ -306,36 +515,17 @@ export default function JoinUs() {
                       type="tel"
                       required
                       placeholder="(555) 123-4567"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
                       className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400"
                     />
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                    className="space-y-2"
-                  >
-                    <label className="text-zinc-900 dark:text-white text-sm font-medium block">
-                      Position Applying For <span className="text-yellow-600">*</span>
-                    </label>
-                    <select 
-                      required
-                      className="w-full h-10 px-3 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md text-zinc-900 dark:text-white focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
-                    >
-                      <option value="">Select a position</option>
-                      {MASTER_DATA.join_page.positions.map((position, index) => (
-                        <option key={index} value={position.title}>{position.title}</option>
-                      ))}
-                      <option value="other">Other</option>
-                    </select>
                   </motion.div>
                 </div>
                 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
                   className="space-y-2"
                 >
                   <label className="text-zinc-900 dark:text-white text-sm font-medium block">
@@ -344,6 +534,8 @@ export default function JoinUs() {
                   <Textarea 
                     placeholder="Tell us about your experience and why you're interested in joining our team..."
                     rows={5}
+                    value={formData.coverLetter}
+                    onChange={(e) => handleInputChange("coverLetter", e.target.value)}
                     className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400 resize-none"
                   />
                 </motion.div>
@@ -351,7 +543,7 @@ export default function JoinUs() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
                   className="space-y-2"
                 >
                   <label className="text-zinc-900 dark:text-white text-sm font-medium block">
@@ -367,10 +559,36 @@ export default function JoinUs() {
                           <span className="font-semibold">Click to upload</span> or drag and drop
                         </p>
                         <p className="text-xs text-zinc-500 dark:text-zinc-400">PDF, DOC, or DOCX (MAX. 5MB)</p>
+                        {fileName && (
+                          <p className="text-xs text-yellow-600 mt-2">Selected: {fileName}</p>
+                        )}
                       </div>
-                      <input type="file" className="hidden" accept=".pdf,.doc,.docx" required />
+                      <input 
+                        ref={fileInputRef}
+                        type="file" 
+                        className="hidden" 
+                        accept=".pdf,.doc,.docx" 
+                        required 
+                        onChange={handleFileChange}
+                      />
                     </label>
                   </div>
+                </motion.div>
+                
+                {/* reCAPTCHA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  className="flex justify-center"
+                >
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''}
+                    onChange={handleRecaptchaChange}
+                    theme="light"
+                    size="normal"
+                  />
                 </motion.div>
                 
                 <motion.div
@@ -381,8 +599,10 @@ export default function JoinUs() {
                   <AnimatedButton 
                     variant="primary" 
                     className="w-full text-black py-6 text-lg"
+                    type="submit"
+                    disabled={isSubmitting}
                   >
-                    Submit Application
+                    {isSubmitting ? "Submitting..." : "Submit Application"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </AnimatedButton>
                 </motion.div>
