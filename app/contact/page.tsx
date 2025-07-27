@@ -1,11 +1,11 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
 import { AnimatedButton } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Phone, Mail, MapPin, Send } from "lucide-react"
+import { Phone, Mail, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react"
 import { WordPressImage } from "@/components/ui/wordpress-image"
 import { MASTER_DATA } from "@/lib/data"
 
@@ -15,6 +15,22 @@ export default function Contact() {
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
   const isFormInView = useInView(formRef, { once: false, margin: "-100px" })
   
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: ""
+  })
+  
+  // Form submission state
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: "" })
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -22,6 +38,92 @@ export default function Contact() {
   
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0])
   const y = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [100, 0, 0, 100])
+  
+  // Handle form input changes
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+    
+    // Clear status when user starts typing again
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: "" })
+    }
+  }
+  
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Validate required fields
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please fill in all required fields.'
+      })
+      return
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid email address.'
+      })
+      return
+    }
+    
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: "" })
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          company: formData.company.trim() || undefined,
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || undefined,
+          message: formData.message.trim()
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        })
+        // Reset form on success
+        setFormData({
+          name: "",
+          company: "",
+          email: "",
+          phone: "",
+          message: ""
+        })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: result.message
+        })
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus({
+        type: 'error',
+        message: 'An error occurred while submitting the form. Please try again or contact us directly.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   
   return (
     <section ref={containerRef} className="py-24 relative overflow-hidden">
@@ -122,7 +224,33 @@ export default function Contact() {
             >
               <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">Send us a message</h2>
               
-              <form className="space-y-5">
+              {/* Status message */}
+              {submitStatus.type && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+                    submitStatus.type === 'success' 
+                      ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
+                      : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+                  }`}
+                >
+                  {submitStatus.type === 'success' ? (
+                    <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                  )}
+                  <span className={`text-sm font-medium ${
+                    submitStatus.type === 'success' 
+                      ? 'text-green-800 dark:text-green-200' 
+                      : 'text-red-800 dark:text-red-200'
+                  }`}>
+                    {submitStatus.message}
+                  </span>
+                </motion.div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {MASTER_DATA.contact_page.formFields.map((field, index) => (
                     field.half ? (
@@ -134,6 +262,8 @@ export default function Contact() {
                           type={field.type}
                           placeholder={field.placeholder}
                           required={field.required}
+                          value={formData[field.label.toLowerCase() as keyof typeof formData] ?? ""}
+                          onChange={(e) => handleInputChange(field.label.toLowerCase(), e.target.value)}
                           className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400"
                         />
                       </div>
@@ -146,6 +276,8 @@ export default function Contact() {
                           type={field.type}
                           placeholder={field.placeholder}
                           required={field.required}
+                          value={formData[field.label.toLowerCase() as keyof typeof formData] ?? ""}
+                          onChange={(e) => handleInputChange(field.label.toLowerCase(), e.target.value)}
                           className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400"
                         />
                       </div>
@@ -161,6 +293,8 @@ export default function Contact() {
                     placeholder="Tell us about your logistics needs..."
                     required
                     rows={5}
+                    value={formData.message}
+                    onChange={(e) => handleInputChange("message", e.target.value)}
                     className="bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-yellow-400 focus:ring-yellow-400 resize-none"
                   />
                 </div>
@@ -173,8 +307,10 @@ export default function Contact() {
                   <AnimatedButton 
                     variant="primary"
                     className="w-full text-black"
+                    type="submit"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                     <Send className="ml-2 h-5 w-5" />
                   </AnimatedButton>
                 </motion.div>
