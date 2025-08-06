@@ -15,8 +15,7 @@ import {
 
 export const MASTER_DATA = {
   contact: {
-    phone: "604-590-1001 Ext 101",
-    cell: "604-417-3505",
+    phone: "604-590-1001",
     fax: "1-888-320-1369",
     email: "altaf@sunshinecoastlogistics.com",
     address: "#203 1493 Foster St. White Rock, BC V4B OC4",
@@ -24,11 +23,11 @@ export const MASTER_DATA = {
   },
   hero: {
     tagline:
-      "Delivering logistics excellence with speed, reliability, and precision across the continent",
+      "Expedited logistics. Unmatched speed. Excellence delivered by the truckload.",
     stats: [
       {
         icon: Users,
-        label: "Over 1,000",
+        label: "Over 5,000",
         sublabel: "businesses working with us",
         delay: 0.2,
       },
@@ -49,8 +48,7 @@ export const MASTER_DATA = {
   map: {
     title: "Global Logistics Network",
     description:
-      "Our platform connects carriers and shippers worldwide, providing seamless logistics solutions across continents.",
-    stats: {
+"We connect shippers across Canada and the U.S., providing seamless logistics solutions through our reliable, asset-based freight services.",    stats: {
       title: "Network Statistics",
       point1: "500+ active routes",
       point2: "98.7% on-time delivery",
@@ -70,34 +68,34 @@ export const MASTER_DATA = {
       {
         title: "Advanced Fleet Technology",
         description:
-          "State-of-the-art tracking systems and modern vehicles provide real-time updates and maximum efficiency.",
+"Powered by Samsara telematics and a modern fleet, we deliver real-time visibility, safety, and unmatched operational efficiency",
         image: "home-services-2",
         color: "from-yellow-500 to-yellow-700",
       },
       {
         title: "Expert Logistics Team",
         description:
-          "Our experienced professionals design customized shipping solutions tailored to your specific business needs.",
+ "From cross-border hauls to time-critical shipments, our team builds freight solutions around your operation.",
         image: "home-services-3",
         color: "from-yellow-300 to-yellow-500",
       },
     ],
     stats: [
-      { value: "10+", label: "Years of Experience" },
+      { value: "20+", label: "Years of Experience" },
       { value: "1,000+", label: "Satisfied Clients" },
       { value: "500,000+", label: "Shipments Completed" },
     ],
   },
   landing_services: {
-    title: "Excellent Service",
+    title: "Service You Can Rely On",
     description:
       "We offer a wide range of services to meet your shipping needs",
     points: [
       {
         icon: Truck,
-        title: "Express Delivery",
+        title: "Expedite & Time Critical",
         description:
-          "Time-critical shipments delivered with precision and care across North America.",
+    "Team drivers ensure your time-sensitive freight moves nonstop, delivered on time, every time across North America.",
         delay: 0.1,
       },
       {
@@ -118,17 +116,16 @@ export const MASTER_DATA = {
         icon: Shield,
         title: "Secure Transport",
         description:
-          "Advanced security protocols and careful handling for your valuable shipments.",
+  "CTPAT, FAST, and CSA certified. Ensuring secure, compliant, and professionally handled freight every mile of the way",
         delay: 0.4,
       },
     ],
   },
   landing_about: {
     tagline:
-      "We are a leading logistics platform connecting shippers and carriers across the Sunshine Coast and beyond. Our digital ecosystem provides comprehensive solutions for modern transportation challenges.",
+    "Sunshine Coast Logistics Inc. is a leading asset-based carrier proudly serving Canada and the U.S. since 2015. Specializing in cross-border and time-critical freight, we deliver safe, reliable transportation backed by a modern fleet and certified compliance.",
     subTagline:
-      "From transport tenders to real-time cargo tracking, we leverage cutting-edge technology to streamline logistics operations and deliver exceptional value to our clients.",
-    features: [
+      "We combine reliability, responsiveness, and cross-border expertise to keep your freight moving without delay.",    features: [
       {
         icon: Award,
         title: "Industry Excellence",
@@ -139,18 +136,18 @@ export const MASTER_DATA = {
         icon: Clock,
         title: "24/7 Support",
         description:
-          "Round-the-clock customer support and real-time shipment monitoring",
+          "We're with you every step, live tracking and dedicated support, day or night",
       },
       {
         icon: Globe,
         title: "Global Reach",
         description:
-          "Extensive network covering major shipping routes worldwide",
+     "From the Port of Vancouver to destinations across the U.S., we move bonded freight with speed, compliance, and care.",
       },
       {
         icon: Shield,
         title: "Secure & Reliable",
-        description: "Advanced security measures and reliable service delivery",
+        description: "Protecting your freight with industry-leading security and proven reliability",
       },
     ],
     numBusinesses: "1,000+",
@@ -200,7 +197,7 @@ export const MASTER_DATA = {
       {
         title: "Our Story",
         content:
-          "Since 2015, Sunshine Coast Logistics has been a family-owned business dedicated to providing flexible, comprehensive freight solutions. We've worked to cultivate a great company culture with a modern fleet and best-in-class driving force. Our company was built on the premise that each and every customer deserves a carrier they can trust, a carrier that operates safely, delivers on time, and communicates proactively.",
+          "Sunshine Coast Logistics began in 2015 with one truck and a single owner operator determined to build something better. Today, we operate a modern fleet of over 50 trucks and more than 100 trailers, providing flexible and high-performance freight solutions across Canada and the United States. As a family-owned company with a strong culture and dedicated team, we have built our reputation on trust, safety, and reliability. Our focus on proactive communication and on-time delivery ensures that every customer receives dependable and professional service.",
         image: "home-about",
         stats: [
           { value: "2015", label: "Founded" },
@@ -211,8 +208,7 @@ export const MASTER_DATA = {
       {
         title: "Our Mission",
         content:
-          "Our mission is to provide exceptional transportation and logistics services that exceed our customers' expectations. We strive to be the most reliable, efficient, and customer-focused logistics partner in the industry. Through continuous innovation, investment in technology, and development of our team, we aim to set new standards in the logistics industry while maintaining our commitment to safety, sustainability, and community engagement.",
-        image: "home-services-2",
+  "As a family-owned company, our mission is to provide reliable, efficient, and customer-focused transportation solutions rooted in trust, accountability, and long-term relationships. We are committed to safety, sustainability, and continuous improvement. By investing in our people, technology, and fleet, we strive to deliver consistent value and set a higher standard for the logistics industry through integrity and service excellence.",        image: "home-services-2",
         stats: [
           { value: "24/7", label: "Support" },
           { value: "100%", label: "Commitment" },
@@ -222,8 +218,7 @@ export const MASTER_DATA = {
       {
         title: "Our Values",
         content:
-          "At Sunshine Coast Logistics, our core values guide everything we do. We believe in integrity in all our dealings, safety as our top priority, excellence in service delivery, respect for our team members and clients, innovation to drive continuous improvement, and sustainability in our operations. These values form the foundation of our company culture and inform our decision-making at every level of the organization.",
-        image: "home-services-3",
+   "At Sunshine Coast Logistics, our values are the foundation of who we are and how we operate. We believe in integrity, putting honesty and accountability at the center of every decision. Safety is always our top priority, both on the road and in the workplace. We are committed to delivering service excellence, treating every shipment with care and urgency. We show respect to our team, our clients, and our partners. We embrace innovation to drive improvement and adapt to changing needs. We operate responsibly, with a strong focus on sustainability and long-term impact",        image: "home-services-3",
         stats: [
           { value: "Safety", label: "First Priority" },
           { value: "Integrity", label: "In All Dealings" },
@@ -237,20 +232,18 @@ export const MASTER_DATA = {
         icon: Users,
         title: "Customer Focus",
         description:
-          "We prioritize our customers' needs and build long-term relationships based on trust and reliability.",
-      },
+          "Our clients work directly with ownership for faster communication, stronger relationships, and service they can rely on",      },
       {
         icon: Shield,
         title: "Safety First",
         description:
-          "Safety is our top priority in all operations, protecting our team, cargo, and communities.",
+          "Safety is our priority, backed by Samsara technology and a dedicated safety team.",
       },
       {
         icon: Truck,
         title: "Modern Fleet",
         description:
-          "Our state-of-the-art fleet ensures efficient, reliable, and environmentally responsible transportation.",
-      },
+          "Our modern fleet of Volvo trucks and Utility and Wabash trailers ensures efficient, reliable, and environmentally responsible transportation."      },
       {
         icon: Globe,
         title: "Nationwide Coverage",
@@ -261,7 +254,7 @@ export const MASTER_DATA = {
     cta: {
       tagline: "Ready to Get Started?",
       description:
-        "Contact our team today to discuss how our logistics solutions can help your business thrive.",
+  "We are setting the pace in freight. Let’s move your business forward — contact us today.",
       button: "Contact Us",
     },
   },
@@ -274,8 +267,7 @@ export const MASTER_DATA = {
         title: "FTL (Full Truck Load)",
         icon: Truck,
         description:
-          "We provide reliable pick-ups and deliveries, competitive rates, and courteous customer service for Full Truck Load freight. Whether Flatbed, Dry Van, one skid or half a trailer, Sunshine Coast Logistics has you covered from coast to coast.",
-        image: "home-services-1",
+          "We provide reliable full truckload transportation across Canada and the U.S., with options for both expedited and standard service. Whether your shipment requires time-sensitive delivery or a cost-effective scheduled run, our modern fleet and experienced drivers ensure safe, on-time performance every step of the way. From single skid loads to full trailers, we move your freight with precision, care, and consistent communication.",        image: "home-services-1",
         features: [
           "Dedicated capacity for your shipments",
           "Direct point-to-point transportation",
@@ -288,7 +280,7 @@ export const MASTER_DATA = {
         title: "LTL (Less Than Truck Load)",
         icon: Globe,
         description:
-          "Not every shipment requires a full trailer. Our team offers reliable pick-ups and deliveries for Less Than Truck Load freight, ensuring flexibility and efficiency for smaller shipments.",
+"Not every shipment needs a full trailer. Our LTL service provides reliable, cost-effective transportation for smaller freight volumes, with flexible scheduling and timely pick-ups and deliveries. Whether it’s one skid or several pallets, we move your freight efficiently across Canada and the U.S., backed by the same commitment to communication, care, and performance as our FTL service.",
         image: "home-services-2",
         features: [
           "Cost-effective solution for smaller shipments",
@@ -302,7 +294,7 @@ export const MASTER_DATA = {
         title: "Expedited Shipping",
         icon: Clock,
         description:
-          "When time is critical, our expedited shipping services ensure your freight arrives at its destination as quickly as possible, with priority handling and direct routes.",
+  "When time is critical, our expedited service delivers. We provide priority handling, direct routing, and team driver options to ensure your freight arrives fast and on time. From urgent one-off shipments to regular time-sensitive runs, we offer dependable solutions across Canada and the U.S. with real-time tracking and proactive communication every step of the way.",
         image: "home-services-3",
         features: [
           "Time-critical delivery solutions",
@@ -361,7 +353,7 @@ export const MASTER_DATA = {
         name: "Dry Vans",
         icon: Truck,
         description:
-          "Our late-model dry van trailers are equipped with logistics tracks, wood floors, and vents. We only use plated dry vans with a snag-free finish allowing for maximum width for your specific needs.",
+ "Our late-model dry van trailers are equipped for secure and efficient transport. All units feature plated, snag-free interiors for maximum cargo width, wood floors, vents, and logistics posts every 16 inches to ensure flexible and secure load placement. Built to handle a wide range of freight, our trailers support safe, compliant, and damage-free transit across Canada and the U.S.",
         features: [
           "53' Trailers",
           "Air-ride suspension",
@@ -376,7 +368,7 @@ export const MASTER_DATA = {
         name: "Refrigerated Trailers",
         icon: Thermometer,
         description:
-          "Transporting temperature and time-sensitive truckloads with specific requirements is a challenging task. Sunshine Coast Refrigerated executes these requirements with state of the art equipment and information technology.",
+ "Transporting temperature and time-sensitive truckloads with specific requirements is a challenging task. Sunshine Coast Refrigerated executes these requirements with state-of-the-art equipment and information technology.",
         features: [
           "Temperature-controlled environment",
           "Real-time temperature monitoring",
@@ -391,7 +383,7 @@ export const MASTER_DATA = {
         name: "Flatbeds",
         icon: Layers,
         description:
-          "Sunshine Coast offers a versatile flatbed fleet that is able to transport any type of awkward load to and from anywhere in North America. An assortment of flatbeds ranging from 48' -53' tandem and triaxle.",
+ "Sunshine Coast Logistics offers a versatile flatbed fleet equipped to handle oversized, awkward, or non-standard freight across North America. Our equipment includes 48-foot and 53-foot tandem and tridem trailers, as well as Roll-Tite (Conestoga) systems that provide the protection of a dry van with the flexibility of a flatbed. Ideal for weather-sensitive or crane-loaded freight, our flatbed services are designed for safety, flexibility, and efficient loading every time.",
         features: [
           "48' to 53' lengths available",
           "Tandem and triaxle options",

@@ -98,8 +98,8 @@ export default function Hero() {
               Contact Us
             </AnimatedButton>
             <AnimatedButton
-              variant="outline"
               href="/about"
+              variant="outline"
               className="text-lg px-8 text-yellow-400 group-hover:text-yellow-300 border-white/30"
             >
               Learn More

@@ -60,8 +60,7 @@ function Button({
 // Animated Button variants
 const animatedButtonVariants = {
   primary: "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 rounded-full relative overflow-hidden group",
-  outline: "border-white/30 text-white hover:bg-white/10 rounded-full relative overflow-hidden group",
-  default: "relative overflow-hidden group rounded-full",
+outline: "bg-transparent border-white/30 text-white hover:bg-white/10 rounded-full relative overflow-hidden group",  default: "relative overflow-hidden group rounded-full",
 }
 
 interface AnimatedButtonProps extends React.ComponentProps<"button"> {

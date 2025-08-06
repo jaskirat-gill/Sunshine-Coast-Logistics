@@ -9,7 +9,6 @@ import { Background } from "./ui/background"
 export default function Footer() {
 
     const contactInfo = [
-        { icon: Phone, info: MASTER_DATA.contact.cell, href: `tel:${MASTER_DATA.contact.cell}` },
         { icon: Phone, info: MASTER_DATA.contact.phone, href: `tel:${MASTER_DATA.contact.phone}` },
         { icon: PrinterIcon, info: MASTER_DATA.contact.fax, href: `tel:${MASTER_DATA.contact.fax}` },
         { icon: Mail, info: MASTER_DATA.contact.email, href: `mailto:${MASTER_DATA.contact.email}` },

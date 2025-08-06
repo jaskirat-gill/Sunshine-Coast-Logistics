@@ -33,8 +33,8 @@ export default function Header() {
           <div className="flex items-center space-x-6">
             <div className="flex items-center text-zinc-700 dark:text-zinc-300">
               <Phone className="w-4 h-4 mr-2 text-yellow-500" />
-              <span className="hidden sm:inline">{MASTER_DATA.contact.cell}</span>
-              <a href={`tel:${MASTER_DATA.contact.cell}`} className="sm:hidden">Call</a>
+              <span className="hidden sm:inline">{MASTER_DATA.contact.phone}</span>
+              <a href={`tel:${MASTER_DATA.contact.phone}`} className="sm:hidden">Call</a>
             </div>
             <div className="flex items-center text-zinc-700 dark:text-zinc-300">
               <Mail className="w-4 h-4 mr-2 text-yellow-500" />
@@ -202,7 +202,7 @@ export default function Header() {
                   <div className="mt-8 space-y-4 px-4">
                     <div className="flex items-center text-zinc-700 dark:text-zinc-300">
                       <Phone className="w-5 h-5 mr-3 text-yellow-500" />
-                      <span>{MASTER_DATA.contact.cell}</span>
+                      <span>{MASTER_DATA.contact.phone}</span>
                     </div>
                     <div className="flex items-center text-zinc-700 dark:text-zinc-300">
                       <Mail className="w-5 h-5 mr-3 text-yellow-500" />
