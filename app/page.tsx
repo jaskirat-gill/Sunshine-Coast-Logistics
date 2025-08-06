@@ -25,6 +25,11 @@ const About = dynamic(() => import("@/components/About"), {
   loading: () => <div className="h-[600px]" />
 })
 
+const CertificationsBanner = dynamic(() => import("@/components/CertificationsBanner"), {
+  ssr: false,
+  loading: () => <div className="h-[200px]" />
+})
+
 export default function HomePage() {
   return (
     <div className="bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-900 dark:to-black relative">
@@ -34,6 +39,9 @@ export default function HomePage() {
       </Suspense>
       <Suspense fallback={<div className="h-[800px]" />}>
         <AnimatedFeature />
+      </Suspense>
+      <Suspense fallback={<div className="h-[200px]" />}>
+        <CertificationsBanner />
       </Suspense>
       <Suspense fallback={<div className="h-[600px]" />}>
         <Services />
