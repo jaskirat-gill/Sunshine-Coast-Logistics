@@ -456,16 +456,11 @@ export const MASTER_DATA = {
       "Reliable, fast, and secure logistics solutions across North America. We connect businesses with efficient transportation services.",
   },
   certifications: [
-    "DOT Certified",
-    "FMCSA Compliant", 
-    "Hazmat Certified",
-    "Cross-Border Certified",
-    "Temperature Controlled",
-    "Oversized Load Certified",
-    "Security Cleared",
-    "Safety Rated",
-    "Insurance Bonded",
-    "Customs Licensed"
+    { name: "FAST", slug: "certification-fast" },
+    { name: "CTPAT", slug: "certification-ctpat" },
+    { name: "CSA", slug: "certification-csa" },
+    { name: "DOT", slug: "certification-dot" },
+    { name: "FMCSA", slug: "certification-fmcsa" },
   ],
   socials: [
     {

@@ -2,27 +2,23 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Shield, Award, CheckCircle } from "lucide-react"
-import { MASTER_DATA } from "@/lib/data"
+import Image from "next/image"
 
 export default function CertificationsBanner() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
-  
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const observer = new window.IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting)
       },
       { threshold: 0.1 }
     )
-    
     const currentElement = containerRef.current
-    
     if (currentElement) {
       observer.observe(currentElement)
     }
-    
     return () => {
       if (currentElement) {
         observer.unobserve(currentElement)
@@ -30,66 +26,95 @@ export default function CertificationsBanner() {
     }
   }, [])
 
-  const icons = [Shield, Award, CheckCircle]
-  
-  // Duplicate certifications for seamless loop
-  const duplicatedCertifications = [...MASTER_DATA.certifications, ...MASTER_DATA.certifications]
+  // Hardcoded SVGs (first one is the FAST logo from WordPress)
+  const svgAssets = [
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/FAST-1.svg`,
+      alt: "FAST Certification",
+      width: 128,
+      height: 128
+    },
+    // Add more SVGs here as needed
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/pip.svg`,
+      alt: "PIP",
+      width: 128,
+      height: 128
+    },
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/cbsa.svg`,
+      alt: "Placeholder Certification 2",
+      width: 256,
+      height: 256
+    },
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/ctpat.svg`,
+      alt: "Placeholder Certification 2",
+      width: 256,
+      height: 256
+    },
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/homeland-security-seeklogo.png`,
+      alt: "Placeholder Certification 2",
+      width: 64,
+      height: 64
+    }
+  ]
+  // Duplicate for seamless loop
+  const duplicatedSVGs = [...svgAssets, ...svgAssets]
 
   return (
     <section ref={containerRef} className="relative py-16 overflow-hidden bg-gradient-to-r from-yellow-400/10 to-yellow-600/10 dark:from-yellow-400/5 dark:to-yellow-600/5">
       <div className="container mx-auto px-4">
-        <div className="relative h-24 md:h-32 flex items-center justify-center overflow-hidden">
+        {/* Section Title */}
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-yellow-600 to-yellow-400 bg-clip-text text-transparent">
+          Certification & Compliance
+        </h2>
+        <div className="relative h-32 md:h-40 flex items-center justify-center overflow-hidden">
           {/* Background glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-transparent to-yellow-600/20 blur-3xl" />
-          
-          {/* Continuous scrolling certifications */}
-          <motion.div 
-            className="flex items-center space-x-8 md:space-x-12 whitespace-nowrap"
-            animate={isInView ? { x: [0, -50 * MASTER_DATA.certifications.length] } : { x: 0 }}
-            transition={{ 
-              duration: 30, 
+
+          {/* Continuous scrolling SVGs */}
+          <motion.div
+            className="flex items-center space-x-12 md:space-x-20 whitespace-nowrap"
+            animate={isInView ? { x: [0, -180 * svgAssets.length] } : { x: 0 }}
+            transition={{
+              duration: 30,
               ease: "linear",
               repeat: Infinity,
               repeatType: "loop"
             }}
           >
-            {duplicatedCertifications.map((certification, index) => (
+            {duplicatedSVGs.map((svg, index) => (
               <motion.div
                 key={index}
-                className="flex items-center space-x-3 md:space-x-4 flex-shrink-0"
+                className="flex items-center flex-shrink-0"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ 
-                  duration: 0.6, 
+                transition={{
+                  duration: 0.6,
                   delay: index * 0.1,
                   ease: [0.25, 1, 0.5, 1]
                 }}
               >
-                {/* Icon */}
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
-                  {(() => {
-                    const IconComponent = icons[index % icons.length]
-                    return <IconComponent className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                  })()}
+                {/* SVG Asset */}
+                <div className="flex items-center justify-center flex-shrink-0">
+                  <Image
+                    src={svg.src}
+                    alt={svg.alt}
+                    width={svg.width * 2}
+                    height={svg.height * 2}
+                    className="w-32 h-32 md:w-48 md:h-48 object-contain"
+                    draggable={false}
+                    unoptimized
+                  />
                 </div>
-                
-                {/* Text */}
-                <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-zinc-900 to-zinc-700 dark:from-white dark:to-yellow-400 bg-clip-text text-transparent whitespace-nowrap">
-                  {certification}
-                </h3>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-4 left-4 w-2 h-2 bg-yellow-400 rounded-full opacity-60 animate-pulse" />
-        <div className="absolute top-8 right-8 w-1 h-1 bg-yellow-500 rounded-full opacity-40 animate-pulse delay-1000" />
-        <div className="absolute bottom-4 left-1/4 w-1.5 h-1.5 bg-yellow-600 rounded-full opacity-50 animate-pulse delay-500" />
-        <div className="absolute bottom-8 right-1/3 w-1 h-1 bg-yellow-400 rounded-full opacity-30 animate-pulse delay-1500" />
-      </div>
+
     </section>
   )
-} 
+}

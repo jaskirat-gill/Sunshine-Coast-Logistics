@@ -5,6 +5,7 @@ const WORDPRESS_API_URL = baseUrl.endsWith('/graphql') ? baseUrl : baseUrl.repla
 
 export async function POST(request: NextRequest) {
   try {
+    
     const body = await request.json()
     
     const response = await fetch(WORDPRESS_API_URL, {

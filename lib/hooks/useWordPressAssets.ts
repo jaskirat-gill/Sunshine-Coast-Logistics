@@ -5,7 +5,7 @@ import { fetchWordPressAssets } from '../services/wordpress'
 // In-memory cache
 let assetsCache: WordPressAsset[] | null = null
 let lastFetch = 0
-const CACHE_DURATION = 1000 * 60 * 60 // 1 hour
+const CACHE_DURATION = 1000 * 10 // 1 hour
 
 export function useWordPressAssets() {
   const [assets, setAssets] = useState<WordPressAsset[] | null>(assetsCache)

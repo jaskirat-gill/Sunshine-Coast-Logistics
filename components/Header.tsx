@@ -66,7 +66,7 @@ export default function Header() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={`fixed left-0 right-0 z-140 transition-all duration-300 ${
           scrolled 
-            ? "bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg shadow-md py-2 top-0" 
+            ? "bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg shadow-md py-5 top-0" 
             : "bg-transparent py-4 top-8 sm:top-10"
         }`}
       >
@@ -77,12 +77,12 @@ export default function Header() {
             className="flex items-center space-x-3"
           >
             <Link href="/">
-              <div className="relative h-10 w-32">
+              <div className="relative h-14 w-44">
                 <WordPressImage
                   slug="logo"
                   alt="Logo"
-                  width={128}
-                  height={40}
+                  width={176}
+                  height={56}
                   className="object-contain"
                   priority
                 />
@@ -101,7 +101,7 @@ export default function Header() {
               >
                 <Link 
                   href={item.href}
-                  className={`relative px-3 py-2 rounded-lg font-medium text-sm group ${
+                  className={`relative px-3 py-2 rounded-lg font-semibold text-base group ${
                     scrolled 
                       ? "text-zinc-800 hover:text-yellow-600 dark:text-zinc-200 dark:hover:text-yellow-400" 
                       : "text-zinc-100 hover:text-yellow-400"
@@ -154,12 +154,12 @@ export default function Header() {
                     <WordPressImage
                       slug="logo"
                       alt="Logo"
-                      width={36}
-                      height={36}
+                      width={48}
+                      height={48}
                       className="rounded-lg"
                       priority
                     />
-                    <span className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                    <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                       Menu
                     </span>
                   </div>
@@ -188,7 +188,7 @@ export default function Header() {
                         >
                           <Link
                             href={item.href}
-                            className="text-zinc-900 dark:text-white py-4 px-4 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-all duration-200 text-lg font-medium flex items-center"
+                            className="text-zinc-900 dark:text-white py-4 px-4 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-all duration-200 text-xl font-semibold flex items-center"
                             onClick={() => setIsOpen(false)}
                           >
                             {item.name}

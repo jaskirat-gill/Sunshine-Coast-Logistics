@@ -107,7 +107,7 @@ export default function Map() {
                 transition={{ duration: 1.5, delay: 0.5 }}
               >
                 <motion.img
-                  src="/world.svg"
+                  src="/north-america.svg"
                   alt="World Map"
                   className="absolute inset-0 w-full h-full object-contain opacity-90 pointer-events-none select-none dark:invert dark:opacity-40"
                   style={{ zIndex: 1 }}
