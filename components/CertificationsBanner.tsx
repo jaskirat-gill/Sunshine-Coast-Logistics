@@ -56,8 +56,14 @@ export default function CertificationsBanner() {
     {
       src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/homeland-security-seeklogo.png`,
       alt: "Placeholder Certification 2",
-      width: 64,
-      height: 64
+      width: 1,
+      height: 1
+    },
+    {
+      src: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/2025/08/smartway.svg`,
+      alt: "Placeholder Certification 2",
+      width: 1,
+      height: 1
     }
   ]
   // Duplicate for seamless loop
@@ -102,9 +108,11 @@ export default function CertificationsBanner() {
                   <Image
                     src={svg.src}
                     alt={svg.alt}
-                    width={svg.width * 2}
-                    height={svg.height * 2}
-                    className="w-32 h-32 md:w-48 md:h-48 object-contain"
+                    width={svg.src.endsWith('seeklogo.png') ? 32 : svg.width * 2}
+                    height={svg.src.endsWith('seeklogo.png') ? 32 : svg.height * 2}
+                    className={svg.src.endsWith('.png')
+                      ? "w-12 h-12 md:w-16 md:h-16 object-contain"
+                      : "w-32 h-32 md:w-48 md:h-48 object-contain"}
                     draggable={false}
                     unoptimized
                   />
