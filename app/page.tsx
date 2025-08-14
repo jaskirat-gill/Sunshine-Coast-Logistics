@@ -3,6 +3,8 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import Hero from "@/components/Hero"
 import { pageMetadata } from "@/lib/seo/metadata"
+import { StructuredData } from '@/components/StructuredData'
+import { organizationSchema, websiteSchema, logisticsServiceSchema } from '@/lib/seo/structured-data'
 
 export const metadata: Metadata = pageMetadata.home()
 
@@ -29,23 +31,26 @@ const CertificationsBanner = dynamic(() => import("@/components/CertificationsBa
 
 export default function HomePage() {
   return (
-    <div className="bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-900 dark:to-black relative">
-      <Hero />
-      <Suspense fallback={<div className="h-[600px]" />}>
-        <Map />
-      </Suspense>
-      <Suspense fallback={<div className="h-[800px]" />}>
-        <AnimatedFeature />
-      </Suspense>
-      <Suspense fallback={<div className="h-[200px]" />}>
-        <CertificationsBanner />
-      </Suspense>
-      <Suspense fallback={<div className="h-[600px]" />}>
-        <Services />
-      </Suspense>
-      <Suspense fallback={<div className="h-[600px]" />}>
-        <About />
-      </Suspense>
-    </div>
+    <>
+      <StructuredData data={[organizationSchema, websiteSchema, logisticsServiceSchema]} />
+      <div className="bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-900 dark:to-black relative">
+        <Hero />
+        <Suspense fallback={<div className="h-[600px]" />}>
+          <Map />
+        </Suspense>
+        <Suspense fallback={<div className="h-[800px]" />}>
+          <AnimatedFeature />
+        </Suspense>
+        <Suspense fallback={<div className="h-[200px]" />}>
+          <CertificationsBanner />
+        </Suspense>
+        <Suspense fallback={<div className="h-[600px]" />}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={<div className="h-[600px]" />}>
+          <About />
+        </Suspense>
+      </div>
+    </>
   )
 }
