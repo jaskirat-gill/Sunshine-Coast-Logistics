@@ -44,7 +44,14 @@ const nextConfig: NextConfig = {
     
     // Optimize CSS
     optimizeCss: true,
+
   },
+  
+  // Compress responses
+  compress: true,
+  
+  // Generate static pages when possible
+  output: 'standalone',
   
   // Configure webpack for better performance
   webpack: (config) => {

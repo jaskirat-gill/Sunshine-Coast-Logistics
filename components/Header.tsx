@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Phone, Mail } from "lucide-react"
+import { Menu, Phone, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { WordPressImage } from "@/components/ui/wordpress-image"
@@ -74,7 +74,7 @@ export default function Header() {
           {/* Logo */}
           <motion.div 
             whileHover={{ scale: 1.05 }} 
-            className="flex items-center space-x-3"
+            className={`flex items-center space-x-3 ${isOpen ? 'lg:flex hidden' : 'flex'}`}
           >
             <Link href="/">
               <div className="relative h-14 w-44">
@@ -115,7 +115,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          <div className={`hidden lg:block ${isOpen ? 'lg:block hidden' : ''}`}>
             <Button
               className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 text-lg px-8 py-6 rounded-full relative overflow-hidden group"
             >
@@ -137,7 +137,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden text-zinc-800 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors rounded-full"
+                className={`lg:hidden text-zinc-800 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors rounded-full ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                 aria-label="Open menu"
               >
                 <Menu className="h-6 w-6" />
@@ -149,7 +149,7 @@ export default function Header() {
             >
               <div className="flex flex-col h-full">
                 {/* Header with logo and title */}
-                <div className="flex justify-between items-center p-6 border-b border-zinc-200 dark:border-zinc-800">
+                <div className="flex items-center p-6 border-b border-zinc-200 dark:border-zinc-800">
                   <div className="flex items-center space-x-2">
                     <WordPressImage
                       slug="logo"
@@ -163,15 +163,6 @@ export default function Header() {
                       Menu
                     </span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="text-zinc-800 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
-                    aria-label="Close menu"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
                 </div>
 
                 {/* Navigation Items */}

@@ -4,22 +4,22 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next"
+import { baseMetadata } from "@/lib/seo/metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap',
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: "Sunshine Coast Logistics | North America's Expedite Experts",
-  description: "Reliable, fast, and secure logistics solutions across North America. We connect businesses with efficient transportation services.",
-  keywords: "logistics, shipping, transportation, freight, expedite, North America, Sunshine Coast",
-};
+export const metadata: Metadata = baseMetadata;
 
 export default function RootLayout({
   children,

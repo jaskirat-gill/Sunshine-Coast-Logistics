@@ -1,32 +1,29 @@
-"use client"
-
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
+import { Metadata } from 'next'
 import Hero from "@/components/Hero"
+import { pageMetadata } from "@/lib/seo/metadata"
+
+export const metadata: Metadata = pageMetadata.home()
 
 // Dynamically import components that are not in the initial viewport
 const Map = dynamic(() => import("@/components/Map"), { 
-  ssr: false,
   loading: () => <div className="h-[600px]" /> 
 })
 
 const AnimatedFeature = dynamic(() => import("@/components/AnimatedFeature"), {
-  ssr: false,
   loading: () => <div className="h-[800px]" />
 })
 
 const Services = dynamic(() => import("@/components/Services"), {
-  ssr: false,
   loading: () => <div className="h-[600px]" />
 })
 
 const About = dynamic(() => import("@/components/About"), {
-  ssr: false,
   loading: () => <div className="h-[600px]" />
 })
 
 const CertificationsBanner = dynamic(() => import("@/components/CertificationsBanner"), {
-  ssr: false,
   loading: () => <div className="h-[200px]" />
 })
 
