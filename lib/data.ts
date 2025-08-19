@@ -62,7 +62,7 @@ export const MASTER_DATA = {
         title: "Nationwide Coverage",
         description:
           "Our extensive network spans across North America, ensuring your shipments reach their destination on time, every time.",
-        image: "home-services-1",
+        image: "roller2",
         color: "from-yellow-400 to-yellow-600",
       },
       {
@@ -76,7 +76,7 @@ export const MASTER_DATA = {
         title: "Expert Logistics Team",
         description:
  "From cross-border hauls to time-critical shipments, our team builds freight solutions around your operation.",
-        image: "home-services-3",
+        image: "roller3",
         color: "from-yellow-300 to-yellow-500",
       },
     ],
