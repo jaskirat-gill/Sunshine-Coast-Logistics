@@ -185,6 +185,7 @@ export const MASTER_DATA = {
     ],
     tagline:
       "Ready to streamline your logistics operations? Contact us for a personalized consultation.",
+    image: "logocloseup"
   },
   about_page: {
     tagline: "Delivering logistics excellence since 2015",
@@ -208,7 +209,7 @@ export const MASTER_DATA = {
       {
         title: "Our Mission",
         content:
-  "As a family-owned company, our mission is to provide reliable, efficient, and customer-focused transportation solutions rooted in trust, accountability, and long-term relationships. We are committed to safety, sustainability, and continuous improvement. By investing in our people, technology, and fleet, we strive to deliver consistent value and set a higher standard for the logistics industry through integrity and service excellence.",        image: "home-services-2",
+  "As a family-owned company, our mission is to provide reliable, efficient, and customer-focused transportation solutions rooted in trust, accountability, and long-term relationships. We are committed to safety, sustainability, and continuous improvement. By investing in our people, technology, and fleet, we strive to deliver consistent value and set a higher standard for the logistics industry through integrity and service excellence.",        image: "roller2",
         stats: [
           { value: "24/7", label: "Support" },
           { value: "100%", label: "Commitment" },
@@ -218,7 +219,7 @@ export const MASTER_DATA = {
       {
         title: "Our Values",
         content:
-   "At Sunshine Coast Logistics, our values are the foundation of who we are and how we operate. We believe in integrity, putting honesty and accountability at the center of every decision. Safety is always our top priority, both on the road and in the workplace. We are committed to delivering service excellence, treating every shipment with care and urgency. We show respect to our team, our clients, and our partners. We embrace innovation to drive improvement and adapt to changing needs. We operate responsibly, with a strong focus on sustainability and long-term impact",        image: "home-services-3",
+   "At Sunshine Coast Logistics, our values are the foundation of who we are and how we operate. We believe in integrity, putting honesty and accountability at the center of every decision. Safety is always our top priority, both on the road and in the workplace. We are committed to delivering service excellence, treating every shipment with care and urgency. We show respect to our team, our clients, and our partners. We embrace innovation to drive improvement and adapt to changing needs. We operate responsibly, with a strong focus on sustainability and long-term impact",        image: "roller3",
         stats: [
           { value: "Safety", label: "First Priority" },
           { value: "Integrity", label: "In All Dealings" },
@@ -267,7 +268,7 @@ export const MASTER_DATA = {
         title: "FTL (Full Truck Load)",
         icon: Truck,
         description:
-          "We provide reliable full truckload transportation across Canada and the U.S., with options for both expedited and standard service. Whether your shipment requires time-sensitive delivery or a cost-effective scheduled run, our modern fleet and experienced drivers ensure safe, on-time performance every step of the way. From single skid loads to full trailers, we move your freight with precision, care, and consistent communication.",        image: "home-services-1",
+          "We provide reliable full truckload transportation across Canada and the U.S., with options for both expedited and standard service. Whether your shipment requires time-sensitive delivery or a cost-effective scheduled run, our modern fleet and experienced drivers ensure safe, on-time performance every step of the way. From single skid loads to full trailers, we move your freight with precision, care, and consistent communication.",        image: "still3",
         features: [
           "Dedicated capacity for your shipments",
           "Direct point-to-point transportation",
@@ -281,7 +282,7 @@ export const MASTER_DATA = {
         icon: Globe,
         description:
 "Not every shipment needs a full trailer. Our LTL service provides reliable, cost-effective transportation for smaller freight volumes, with flexible scheduling and timely pick-ups and deliveries. Whether it’s one skid or several pallets, we move your freight efficiently across Canada and the U.S., backed by the same commitment to communication, care, and performance as our FTL service.",
-        image: "home-services-2",
+        image: "still4",
         features: [
           "Cost-effective solution for smaller shipments",
           "Flexible scheduling options",
@@ -295,7 +296,7 @@ export const MASTER_DATA = {
         icon: Clock,
         description:
   "When time is critical, our expedited service delivers. We provide priority handling, direct routing, and team driver options to ensure your freight arrives fast and on time. From urgent one-off shipments to regular time-sensitive runs, we offer dependable solutions across Canada and the U.S. with real-time tracking and proactive communication every step of the way.",
-        image: "home-services-3",
+        image: "still2",
         features: [
           "Time-critical delivery solutions",
           "Priority handling and routing",
@@ -309,7 +310,7 @@ export const MASTER_DATA = {
         icon: Shield,
         description:
           "Our specialized logistics services cater to unique transportation needs, including oversized loads, hazardous materials, and high-value shipments requiring extra security measures.",
-        image: "home-services-4",
+        image: "still1",
         features: [
           "Custom solutions for unique shipping requirements",
           "Experienced handling of oversized and overweight freight",
@@ -376,7 +377,7 @@ export const MASTER_DATA = {
           "Backup power systems",
           "Suitable for perishable goods",
         ],
-        image: "home-services-2",
+        image: "frontshot",
         color: "from-yellow-500 to-yellow-700",
       },
       {

@@ -234,7 +234,7 @@ export default function Contact() {
               {/* Map or image */}
               <div className="mt-8 relative h-48 rounded-xl overflow-hidden">
                 <WordPressImage
-                  slug="map-background"
+                  slug={MASTER_DATA.contact_page.image}
                   alt="Office location map"
                   width={800}
                   height={400}

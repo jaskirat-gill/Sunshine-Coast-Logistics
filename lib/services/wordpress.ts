@@ -3,7 +3,7 @@ import { WordPressAssetsResponse } from '../types/wordpress'
 export async function fetchWordPressAssets() {
   const query = `
     query GetAllAssets {
-      assets {
+      assets(first: 25) {
         nodes {
           id
           title
