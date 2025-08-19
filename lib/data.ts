@@ -62,7 +62,7 @@ export const MASTER_DATA = {
         title: "Nationwide Coverage",
         description:
           "Our extensive network spans across North America, ensuring your shipments reach their destination on time, every time.",
-        image: "roller2",
+        image: "home-services-1",
         color: "from-yellow-400 to-yellow-600",
       },
       {
