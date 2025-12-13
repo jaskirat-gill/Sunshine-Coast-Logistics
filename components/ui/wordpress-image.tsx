@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image'
 import { useWordPressAssets } from '@/lib/hooks/useWordPressAssets'
 
 interface WordPressImageProps {
@@ -51,16 +50,14 @@ export function WordPressImage({
   }
 
   return (
-    <Image
+    <img
       src={imageUrl}
       alt={alt ?? (asset.featuredImage.node.altText || asset.title)}
       className={className}
       width={width}
       height={height}
-      priority={priority}
-      sizes={sizes}
-      quality={quality}
+      loading={priority ? 'eager' : 'lazy'}
       style={{ objectFit }}
     />
   )
-} 
+}

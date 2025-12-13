@@ -2,7 +2,6 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 export default function CertificationsBanner() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -105,7 +104,7 @@ export default function CertificationsBanner() {
               >
                 {/* SVG Asset */}
                 <div className="flex items-center justify-center flex-shrink-0">
-                  <Image
+                  <img
                     src={svg.src}
                     alt={svg.alt}
                     width={svg.src.endsWith('seeklogo.png') ? 32 : svg.width * 2}
@@ -113,8 +112,8 @@ export default function CertificationsBanner() {
                     className={svg.src.endsWith('.png')
                       ? "w-12 h-12 md:w-16 md:h-16 object-contain"
                       : "w-32 h-32 md:w-48 md:h-48 object-contain"}
+                    loading="lazy"
                     draggable={false}
-                    unoptimized
                   />
                 </div>
               </motion.div>
