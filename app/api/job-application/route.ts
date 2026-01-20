@@ -72,11 +72,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get recipient email from environment or use default
-    const toEmail = process.env.CONTACT_TO_EMAIL ?? '';
+    // Get recipient emails from environment
+    const contactEmail = process.env.CONTACT_TO_EMAIL ?? '';
+    const jobApplicationEmail = process.env.JOB_APPLICATION_EMAIL ?? '';
     
-    // Validate recipient email
-    if (!toEmail || !toEmail.trim()) {
+    // Build array of recipient emails (remove empty values)
+    const recipientEmails = [contactEmail, jobApplicationEmail]
+      .filter(email => email && email.trim())
+      .map(email => email.trim());
+    
+    // Validate that at least one recipient email is configured
+    if (recipientEmails.length === 0) {
       return NextResponse.json(
         { success: false, message: 'Job application system is not properly configured. Please contact the administrator.' },
         { status: 500 }
@@ -140,7 +146,7 @@ Resume: ${resumeFileName} (attached)
     
     const mailOptions = {
       from: `"Sunshine Coast Logistics" <${process.env.GMAIL_USER}>`,
-      to: toEmail,
+      to: recipientEmails, // Can be a string or array of email addresses
       replyTo: `${name} <${email}>`,
       subject: subject,
       text: textContent,
